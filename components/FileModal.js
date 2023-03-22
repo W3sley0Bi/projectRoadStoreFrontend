@@ -62,7 +62,7 @@ function fileHandler(idFile,fileName,filePath){
           {/*  id="modal-description"*/}
           <Text>{__dirname + "tmpFiles/"}</Text>
           
-     <img src={`${process.env.NEXT_PUBLIC_NODE_SERVER}/getdocument/${idFile}?filePath=${filePath}`} alt="" /> 
+     <img src={`${process.env.NEXT_PUBLIC_NODE_SERVER}/getdocument/${prop.idFile}?filePath=${prop.file_path}`} alt="" /> 
        
         </Modal.Body>
         <Modal.Footer>
