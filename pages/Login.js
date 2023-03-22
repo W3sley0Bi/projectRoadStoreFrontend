@@ -46,7 +46,7 @@ export default function Login(){
 
      <Input className="element" labelPlaceholder="Username"  value={username} onChange={(e) => setUsername(e.target.value)} />
      <Input.Password className="element" labelPlaceholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}  />
-     <Button className="element" onClick={handleSubmit}> Register </Button>
+     <Button className="element" onClick={handleSubmit}> Login </Button>
 
      <style jsx>{`
        .registration-container {

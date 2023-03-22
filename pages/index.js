@@ -23,7 +23,6 @@ export default function Home() {
         .then(res=> { 
 
           const items = res.data.result.map(person => 
-            
             <a style={{borderColor: 'black'}} href={`/userFolder/${person.idUser}`}>
             <div key={person.idUser}>
             <img src={`https://api.dicebear.com/5.x/adventurer-neutral/svg?seed=${person.idUser}`} width="50px" alt="" /> 
