@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
 import { Input } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
+import FileModal from "../../../components/FileModal"
 
 export default function FolderContent(){
 
@@ -11,6 +12,7 @@ export default function FolderContent(){
 
 
     const [file, setFile] = useState([])
+
   
 
     useEffect(()=>{
@@ -27,36 +29,33 @@ export default function FolderContent(){
             })
             .then(res=> { 
                 
-                console.log(res.data.fileNames)
-                let i = 0
-                const file = res.data.fileNames.map(item => 
-                    // questo sará poi id del file e non il nome della cartella
-                    <a style={{borderColor: 'black'}} href={`/userFolder/${Uid}/${FolderContent}/${item}`}> 
-                    <div key={i++}>
-                      <p>filename: {item}</p>
-                    <br/>
-                      </div>
-                    </a>
-                 
-                  
-                    );
+                console.log(res.data)
+                // assigned_worker_id
 
-                    i = 0
+                const file = res.data.map(item => 
+ 
+                    <FileModal key={item.idFile} idFile={item.idFile} file_name={item.file_name} file_path={item.file_path} ></FileModal>
+                    
+                    );
         
                     setFile(file) 
 
             }).catch(err=> {
             console.log(err)
             //if the user is not authenticated (if there is no token )...
-           // router.push("/Login") // redirect
+                alert("error")
+            router.push("/Login") // redirect
         })
+
+    
     
     }, [router.isReady]);
 
 
     return( 
         <>
-        <p>{file}</p>
+        
+        <div>{file}</div>
         </>
     )
 }

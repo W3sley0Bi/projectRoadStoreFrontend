@@ -3,7 +3,9 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
 import { Input } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
+import RedirectHandler from "../../components/RedirectHandler"
 import { useDropzone } from 'react-dropzone';
+
 
 export default function UserFolders(){
 
@@ -78,37 +80,15 @@ export default function UserFolders(){
         .catch(err => console.log(err))
     };
 
-    const {getRootProps, getInputProps, isDragActive} = useDropzone({
-        onDrop: acceptedFiles => {
-            setFiles(acceptedFiles)
-        },
-        multiple: true,
-        accept: 'image/*, .pdf, .doc, .docx, .xls, .xlsx, .csv',
-    })
-
     return(
         <>
+        <RedirectHandler route={`${Uid}/AddFiles`} >  + AddFiles </RedirectHandler>
+       
+    
            <p>UserID: {Uid}</p> 
            <br/>
             {folders}
-        <form onSubmit={handleSubmit} >
-            <Input labelPlaceholder="FolderName" helperText="Required" required="true" name='Foldername' type="text" value={folder} onChange={(e) => setFolder(e.target.value)} />
-
-            <div {...getRootProps()} style={{padding: '20px', border: '2px dashed #ccc', borderRadius: '5px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', margin: '20px 0'}}>
-                <input {...getInputProps()} />
-                {isDragActive ? 
-                    <p>Drop the files here ...</p> :
-                    <p>Drag 'n' drop some files here, or click to select files</p>
-                }
-            </div>
-
-            {files && files.map(file => (
-                <p key={file.name}>{file.name}</p>
-            ))}
-            <input type="submit" />
-            {/* <Button onClick={handleSubmit}> Send </Button>  */}
-
-            </form>   
+ 
         </>
     )
 }

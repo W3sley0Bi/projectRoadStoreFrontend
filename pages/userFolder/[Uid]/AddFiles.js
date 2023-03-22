@@ -16,17 +16,20 @@ export default function AddFiles(){
     useEffect(()=>{
         if(!router.isReady) return;
         // codes using router.query
+        console.log(Uid)
 
         const token = localStorage.getItem('token')
 
        // retrive folders from filesystem
-        axios.get(`${process.env.NEXT_PUBLIC_NODE_SERVER}/userFolder/${Uid}/AddFiles`, {
+        axios.get(`${process.env.NEXT_PUBLIC_NODE_SERVER}/${Uid}/addFilesAccess`, {
                 headers:{
                     Authorization: token,
                 }
             })
             .then(res=> { 
-                console.log(res.data.result)
+                if (!res.status == 200) {
+                    alert("rispostal del server" + res.status)
+                }
                   
             }).catch(err=> {
             console.log(err)
@@ -52,14 +55,17 @@ export default function AddFiles(){
 
         const token = localStorage.getItem('token')
 
-        axios.post(`${process.env.NEXT_PUBLIC_NODE_SERVER}/${Uid}/addfile`, formData, {
+        axios.post(`${process.env.NEXT_PUBLIC_NODE_SERVER}/${Uid}/addFiles`, formData, {
             headers:{
                 Authorization: token,
                 'Content-Type': 'multipart/form-data',
             }
         })
-        .then(user=> {
-            console.log(user)
+        .then(res=> {
+            if(res.status == 200){
+                alert("files add correctly")
+                router.push(`/userFolder/${Uid}`)
+            }
         })
         .catch(err => console.log(err))
     };
@@ -76,7 +82,7 @@ export default function AddFiles(){
         
         <>
         <form onSubmit={handleSubmit} >
-            <Input labelPlaceholder="FolderName" helperText="Required" required="true" name='Foldername' type="text" value={folder} onChange={(e) => setFolder(e.target.value)} />
+            <Input labelPlaceholder="FolderName" helperText="Required" required={true} name='Foldername' type="text" value={folder} onChange={(e) => setFolder(e.target.value)} />
 
             <div {...getRootProps()} style={{padding: '20px', border: '2px dashed #ccc', borderRadius: '5px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', margin: '20px 0'}}>
                 <input {...getInputProps()} />
@@ -89,7 +95,7 @@ export default function AddFiles(){
             {files && files.map(file => (
                 <p key={file.name}>{file.name}</p>
             ))}
-            <input type="submit" />
+            <input type="submit"/>
              {/* <Button onClick={handleSubmit}> Send </Button>   */}
 
             </form>   
