@@ -6,13 +6,37 @@ export default function FileModal(prop) {
 
   const { setVisible, bindings } = useModal();
   const [token,setToken] = useState("")
+  let img
 
+// useEffect(()=>{
+//     const tokenGot = localStorage.getItem('token')
+//     setToken(tokenGot)
+// })
+
+function fileHandler(idFile,fileName,filePath){
+    setVisible(true)
+    // axios.get(`${process.env.NEXT_PUBLIC_NODE_SERVER}/getdocument/${idFile}?filePath=${filePath}`, {
+    //     headers:{
+    //         Authorization: token,
+    //     }
+    // })
+    // .then(res=> {
+
+    //     console.log(res)     
+    // })
+    // .catch(err => alert(err))
+    
+    //router.push(`/userFolder/${Uid}/${FolderContent}/${fileName}`)
+
+ }
+
+//console.log(process.env.NEXT_PUBLIC_NODE_SERVER + '' + prop.file_path)
 
   return (
     <div>
 
 
-      <div key={prop.idFile}  onClick={() => setVisible(true)}> 
+      <div key={prop.idFile}  onClick={() => fileHandler(prop.idFile,prop.file_name,prop.file_path)}> 
 
                  <p>file ID: {prop.idFile}</p>
                  <p>filename: {prop.file_name}</p>
@@ -37,9 +61,9 @@ export default function FileModal(prop) {
         <Modal.Body>
           {/*  id="modal-description"*/}
           <Text>{__dirname + "tmpFiles/"}</Text>
-          <img src={`${process.env.NEXT_PUBLIC_NODE_SERVER}/getdocument/${prop.idFile}?filePath=${prop.file_path}`} alt="" />
-        
-    {/* <img src={process.env.NEXT_PUBLIC_NODE_SERVER+prop.file_path} alt="" /> */}
+          
+     <img src={`${process.env.NEXT_PUBLIC_NODE_SERVER}/getdocument/${idFile}?filePath=${filePath}`} alt="" /> 
+       
         </Modal.Body>
         <Modal.Footer>
           <Button flat auto color="error" onPress={() => setVisible(false)}>
