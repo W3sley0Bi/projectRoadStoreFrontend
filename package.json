@@ -6,8 +6,11 @@
     "start": "next start"
   },
   "dependencies": {
+    "@ionic/react": "^6.6.2",
+    "@nextui-org/react": "^1.0.0-beta.12",
     "next": "latest",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-dropzone": "^14.2.3"
   }
 }
