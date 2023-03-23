@@ -21,7 +21,7 @@ export default function Home() {
             }
         })
         .then(res=> { 
-
+          
           const items = res.data.result.map(person => 
             <a style={{borderColor: 'black'}} href={`/userFolder/${person.idUser}`}>
             <div key={person.idUser}>
@@ -35,9 +35,10 @@ export default function Home() {
 
           setWorkers(items) 
           
-            //router.push('/')
+            router.push('/')
 })
         .catch(err=> {
+          
             console.log(err)
         //if the user is not authenticated (if there is no token )...
         router.push("/Login") // redirect

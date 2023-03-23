@@ -23,6 +23,7 @@ export default function Login(){
 })
         .catch(err=> {
             console.log(err)
+            //alert(err)
         //if the user is not authenticated (if there is no token )...
         router.push("/login") // redirect
         })

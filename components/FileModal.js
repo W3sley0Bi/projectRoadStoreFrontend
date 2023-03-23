@@ -6,7 +6,6 @@ export default function FileModal(prop) {
 
   const { setVisible, bindings } = useModal();
   const [token,setToken] = useState("")
-  let img
 
 // useEffect(()=>{
 //     const tokenGot = localStorage.getItem('token')
@@ -38,12 +37,11 @@ function fileHandler(idFile,fileName,filePath){
 
       <div key={prop.idFile}  onClick={() => fileHandler(prop.idFile,prop.file_name,prop.file_path)}> 
 
-                 <p>file ID: {prop.idFile}</p>
-                 <p>filename: {prop.file_name}</p>
-                 <p>file_path: {prop.file_path}</p>
-                 <br/>
-                 
-                 </div>
+                <p>file ID: {prop.idFile}</p>
+                <p>filename: {prop.file_name}</p>
+                <p>file_path: {prop.file_path}</p>
+            <br/>
+    </div>
 
       <Modal
         scroll
