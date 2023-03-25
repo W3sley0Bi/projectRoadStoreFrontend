@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { Input } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
 import { useDropzone } from 'react-dropzone';
+import Layout from '../../../components/Layout';
 
 export default function AddFiles(){
 
@@ -16,7 +17,6 @@ export default function AddFiles(){
     useEffect(()=>{
         if(!router.isReady) return;
         // codes using router.query
-        console.log(Uid)
 
         const token = localStorage.getItem('token')
 
@@ -42,7 +42,7 @@ export default function AddFiles(){
 
     //sumbit forma data
     const handleSubmit = (event) => {
-        event.preventDefault()
+        //event.preventDefault()
 
         const formData = new FormData(); // create a new FormData instance
         formData.append("folder", folder); // append the folder value
@@ -55,6 +55,12 @@ export default function AddFiles(){
 
         const token = localStorage.getItem('token')
 
+        //folderChecker
+        // if(folder){
+        //     console.log(folder)
+        // }
+
+        
         axios.post(`${process.env.NEXT_PUBLIC_NODE_SERVER}/${Uid}/addFiles`, formData, {
             headers:{
                 Authorization: token,
@@ -68,6 +74,9 @@ export default function AddFiles(){
             }
         })
         .catch(err => console.log(err))
+
+        
+
     };
 
     const {getRootProps, getInputProps, isDragActive} = useDropzone({
@@ -81,8 +90,8 @@ export default function AddFiles(){
     return(
         
         <>
-        <form onSubmit={handleSubmit} >
-            <Input labelPlaceholder="FolderName" helperText="Required" required={true} name='Foldername' type="text" value={folder} onChange={(e) => setFolder(e.target.value)} />
+        <Layout>
+            <Input clearable bordered labelPlaceholder="FolderName" helperText="Required" required={true} name='Foldername' type="text" value={folder} onChange={(e) => setFolder(e.target.value)} />
 
             <div {...getRootProps()} style={{padding: '20px', border: '2px dashed #ccc', borderRadius: '5px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', margin: '20px 0'}}>
                 <input {...getInputProps()} />
@@ -95,10 +104,8 @@ export default function AddFiles(){
             {files && files.map(file => (
                 <p key={file.name}>{file.name}</p>
             ))}
-            <input type="submit"/>
-             {/* <Button onClick={handleSubmit}> Send </Button>   */}
-
-            </form>   
+            <Button onClick={handleSubmit}> Send </Button>   
+        </Layout>
         </>
     )
 }

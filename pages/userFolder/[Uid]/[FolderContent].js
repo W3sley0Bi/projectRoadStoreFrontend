@@ -1,16 +1,14 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
-import { Input } from "@nextui-org/react";
-import { Button } from "@nextui-org/react";
 import FileModal from "../../../components/FileModal"
+import Layout from '../../../components/Layout';
+
 
 export default function FolderContent(){
 
     const router = useRouter()
     const { Uid,FolderContent } = router.query
-
-
     const [file, setFile] = useState([])
 
   
@@ -54,8 +52,9 @@ export default function FolderContent(){
 
     return( 
         <>
-        
-        <div>{file}</div>
+        <Layout>
+            <div>{file}</div>
+        </Layout>
         </>
     )
 }

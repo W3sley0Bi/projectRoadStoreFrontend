@@ -1,94 +1,85 @@
-import axios from 'axios';
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router'
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { Input } from "@nextui-org/react";
-import { Button } from "@nextui-org/react";
-import RedirectHandler from "../../components/RedirectHandler"
-import { useDropzone } from 'react-dropzone';
+import RedirectHandler from "../../components/RedirectHandler";
+import { useDropzone } from "react-dropzone";
+import {
+  Button,
+  Grid,
+  Card,
+  Text,
+  Row,
+  Spacer,
+  Link,
+  Container,
+} from "@nextui-org/react";
+import { useSelector, useDispatch } from "react-redux";
+import { setToken } from "../../stores/store";
+import Layout from "../../components/Layout";
+import { fetchFun } from "../../js/fetchFun"
 
+export default function UserFolders() {
+  const router = useRouter();
+  const { Uid } = router.query;
+  const [folder, setFolder] = useState("");
+  const [files, setFiles] = useState([]);
+  const [folders, setFolders] = useState("");
+  const token = useSelector((state) => state.token.value);
+  const uid = useSelector((state) => state.uid.value);
+  const role = useSelector((state) => state.role.value);
 
-export default function UserFolders(){
+  useEffect(() => {
+    if (!router.isReady) return;
 
-    const router = useRouter()
-    const { Uid } = router.query
-    const [folder, setFolder] = useState("")
-    const [files, setFiles] = useState([])
-    const [folders, setFolders] = useState("")
+    (async () => {
+      //user role
+      if (Uid == uid || role == 1) {
+        const res = await fetchFun(`/userFolder/${Uid}`, "GET", {}, token);
+        if (res === 401) {
+          router.push("/Login");
+        } else {
+          const folders = res.result.map((item) => (
+            <Container
+              key={item.idFolder}
+              style={{
+                backgroundColor: "#1F2122",
+                borderRadius: "15px",
+                marginBottom: "10px",
+              }}
+            >
+              <Link href={`/userFolder/${Uid}/${item.idFolder}`}>
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/716/716784.png "
+                  style={{ width: "15%", marginRight: "10%" }}
+                />
+                <div style={{ flexDirection: "column" }}>
+                  <p style={{ color: "white" }}>ID: {item.idFolder}</p>
+                  <p style={{ color: "white" }}>Name: {item.name}</p>
+                </div>
+              </Link>
+            </Container>
+          ));
 
-    useEffect(()=>{
-        if(!router.isReady) return;
-        // codes using router.query
-
-        const token = localStorage.getItem('token')
-
-       // retrive folders from filesystem
-        axios.get(`${process.env.NEXT_PUBLIC_NODE_SERVER}/userFolder/${Uid}`, {
-                headers:{
-                    Authorization: token,
-                }
-            })
-            .then(res=> { 
-                console.log(res.data.result)
-
-                const folders = res.data.result.map(item => 
-                    <a style={{borderColor: 'black'}} href={`/userFolder/${Uid}/${item.idFolder}`}>
-                    <div key={item.idFolder}>
-                      <p>folder id: {item.idFolder}</p>
-                      <p>folder name: {item.name}</p>
-                      <p>assigned worker id: {item.assigned_worker_id}</p>
-                      <br/>
-                      </div>
-                    </a>
-                  
-                  
-                    );
-        
-                    setFolders(folders) 
-                  
-            }).catch(err=> {
-            console.log(err)
-            //if the user is not authenticated (if there is no token )...
-           // router.push("/Login") // redirect
-        })
-    
-    }, [router.isReady]);
-
-    //sumbit forma data
-    const handleSubmit = (event) => {
-        event.preventDefault()
-
-        const formData = new FormData(); // create a new FormData instance
-        formData.append("folder", folder); // append the folder value
-        
-        //looping trough multiple files
-        for (let i = 0; i < files.length; i++) {
-            formData.append(`file${i}`, files[i]);
+          setFolders(folders);
         }
-        formData.append("idUser", Uid)
+      } else {
+        router.push(`/userFolder/${uid}`);
+      }
+    })();
+  }, [router.isReady,router]);
 
-        const token = localStorage.getItem('token')
-
-        axios.post(`${process.env.NEXT_PUBLIC_NODE_SERVER}/addfile`, formData, {
-            headers:{
-                Authorization: token,
-                'Content-Type': 'multipart/form-data',
-            }
-        })
-        .then(user=> {
-            console.log(user)
-        })
-        .catch(err => console.log(err))
-    };
-
-    return(
-        <>
-        <RedirectHandler route={`${Uid}/AddFiles`} >  + AddFiles </RedirectHandler>
-       
-    
-           <p>UserID: {Uid}</p> 
-           <br/>
-            {folders}
- 
-        </>
-    )
+  return (
+    <>
+      <Layout>
+        {/* {coditional rendering here for the button if the he has the role. then chek also the} */}
+        <RedirectHandler route={`${Uid}/AddFiles`}> + AddFiles </RedirectHandler>
+        
+        <Container gap={2} style={{ flexDirection: "column" }}>
+          <br />
+          {folders}
+        </Container>
+      </Layout>
+    </>
+  );
 }
