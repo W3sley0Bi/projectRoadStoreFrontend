@@ -5,7 +5,7 @@ import { Button, Grid, Card, Text, Row, Spacer, Link } from "@nextui-org/react";
 import { useSelector, useDispatch } from "react-redux";
 import { setToken } from "../stores/store";
 import Layout from "../components/Layout";
-import UserCard from "../components/userCard";
+import UserCard from "../components/UserCard";
 import { fetchFun } from "../js/fetchFun";
 
 export default function Home() {
