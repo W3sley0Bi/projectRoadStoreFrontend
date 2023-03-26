@@ -22,7 +22,8 @@ export default function Home() {
         router.push(`/userFolder/${uid}`);
       }else{
       const res = await fetchFun("/workers", "GET", {}, token);
-
+      console.log(res)
+      alert(res)
       if (res === 401) {
         router.push("/Login");
       } else {
