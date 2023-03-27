@@ -1,8 +1,11 @@
-import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
 import FileModal from "../../../components/FileModal"
 import Layout from '../../../components/Layout';
+import { useSelector, useDispatch } from "react-redux";
+import { fetchFun } from '../../../js/fetchFun';
+import RedirectHandler from "../../../components/RedirectHandler";
+import { Container, Row, Col, Spacer } from "@nextui-org/react";
 
 
 export default function FolderContent(){
@@ -10,50 +13,46 @@ export default function FolderContent(){
     const router = useRouter()
     const { Uid,FolderContent } = router.query
     const [file, setFile] = useState([])
-
-  
+    const [formButton,setFormButton] = useState()
+    const token = useSelector((state) => state.token.value);
+    const uid = useSelector((state) => state.uid.value);
+    const role = useSelector((state) => state.role.value);
 
     useEffect(()=>{
         if(!router.isReady) return;
-        // codes using router.query
-
-        const token = localStorage.getItem('token')
-
-       // retrive folders from filesystem
-        axios.get(`${process.env.NEXT_PUBLIC_NODE_SERVER}/userFolder/${Uid}/${FolderContent}`, {
-                headers:{
-                    Authorization: token,
-                }
-            })
-            .then(res=> { 
-                
-                console.log(res.data)
-                // assigned_worker_id
-
-                const file = res.data.map(item => 
- 
+    (async () => {
+        //user role
+        if(role == 2){
+          let form = <RedirectHandler route={`${Uid}/formWorkers`}> I've finished </RedirectHandler>
+          setFormButton(form)
+        }
+  
+        if (Uid == uid || role == 1) {
+          const res = await fetchFun(`/userFolder/${Uid}/${FolderContent}`, "GET", {}, token);
+          if (res === 401) {
+            router.push("/Login");
+          } else {
+                const file = res.map(item => 
                     <FileModal key={item.idFile} idFile={item.idFile} file_name={item.file_name} file_path={item.file_path} ></FileModal>
-                    
                     );
-        
                     setFile(file) 
+                }
 
-            }).catch(err=> {
-            console.log(err)
-            //if the user is not authenticated (if there is no token )...
-                alert("error")
-            router.push("/Login") // redirect
-        })
-
-    
-    
+            } else {
+                router.push(`/userFolder/${uid}`);
+              }
+    })()
     }, [router.isReady]);
 
 
     return( 
         <>
         <Layout>
-            <div>{file}</div>
+            {formButton}
+        <Container gap={2} style={{ flexDirection: "column" }}>
+          <br />
+          {file}
+        </Container>
         </Layout>
         </>
     )

@@ -6,8 +6,9 @@ import { logOut } from "../js/logoutFun";
 export default function NavbarComp(){
 
     const uid = useSelector((state) => state.uid.value);
+    const role = useSelector((state) => state.role.value);
     const [userImg,setUserImg] = useState("")
-
+    const [userReg,setUserReg] = useState("")
     
     useEffect(()=>{
         if(uid !=undefined){
@@ -20,6 +21,11 @@ export default function NavbarComp(){
                     />
 
                     setUserImg(av)
+        }
+        //display user registration if admin
+        if(role == 1){
+            let buttonReg = <Navbar.Link href="/Registration">User Registration</Navbar.Link>
+            setUserReg(buttonReg)
         }
 
 
@@ -66,7 +72,7 @@ export default function NavbarComp(){
               variant="highlight-rounded"
             >
               <Navbar.Link isActive href="/">HOME</Navbar.Link>
-              <Navbar.Link href="Registration">User Registration</Navbar.Link>
+              {userReg}
               <Navbar.Link href="#">Pricing</Navbar.Link>
               <Navbar.Link href="#">Company</Navbar.Link>
             </Navbar.Content>

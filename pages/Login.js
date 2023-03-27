@@ -41,7 +41,11 @@ export default function Login() {
         }else{ 
           const res = await fetchFun("/login", "POST", {username,password}, token);
           console.log(res)
+          if(res == 401){
+            alert("User not found in the DB or wrong input data")
+          }else{
           settingOnLoginStorage(dispatch, res.token,res.userData.Uid,res.userData.Role)
+          }
         }
       };
 
