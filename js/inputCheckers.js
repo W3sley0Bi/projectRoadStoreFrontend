@@ -11,6 +11,7 @@ export const inputCheckName = async (username) => {
     }
   };
   
+
 export const inputCheckPass = async (password) => {
     return "success";
 
@@ -24,4 +25,16 @@ export const inputCheckPass = async (password) => {
     //   console.log(`Invalid password: ${password}`);
     //   return "error";
     // }
+};
+
+
+export const inputCheckEmail = async (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+
+  if (emailRegex.test(email)) {
+    return "success";
+  } else {
+    console.log(`invalid email: ${email}`);
+    return "error";
+  }
 };
