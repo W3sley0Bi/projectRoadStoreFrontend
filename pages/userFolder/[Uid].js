@@ -73,7 +73,7 @@ export default function UserFolders() {
     <>
       <Layout>
         {/* {coditional rendering here for the button if the he has the role. then chek also the} */}
-        <RedirectHandler route={`${Uid}/AddFiles`}> + AddFiles </RedirectHandler>
+        <RedirectHandler route={`${Uid}/AddFiles`}> + AddFolder </RedirectHandler>
         
         <Container gap={2} style={{ flexDirection: "column" }}>
           <br />

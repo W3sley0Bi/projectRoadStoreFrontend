@@ -23,7 +23,7 @@ export default function Home() {
       }else{
       const res = await fetchFun("/workers", "GET", {}, token);
       console.log(res)
-      alert(res)
+     // alert(res)
       if (res === 401) {
         router.push("/Login");
       } else {
