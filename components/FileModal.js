@@ -3,18 +3,27 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Grid , Card, Text, Row, Spacer,Link, Container, Input } from '@nextui-org/react';
 import Layout from './Layout';
+import { useSelector, useDispatch } from "react-redux";
+import { fetchFun } from "../js/fetchFun"
 
 
 export default function FileModal(prop) {
 
   const { setVisible, bindings } = useModal();
-  const [token,setToken] = useState("")
+
   const [modalFile,setModalFile] = useState()
   const [image,setImage] = useState()
+  const token = useSelector((state) => state.token.value);
+  const uid = useSelector((state) => state.uid.value);
+  const role = useSelector((state) => state.role.value);
+  const [deleteButton, setDeleteButton] = useState()
+
 
 useEffect(()=>{
-    const tokenGot = localStorage.getItem('token')
-    setToken(tokenGot)
+
+    if(role == 1){
+      setDeleteButton(<img src="https://cdn-icons-png.flaticon.com/512/1828/1828851.png" width="50px" height="50px" alt="delete" />)
+    }
     
     switch (prop.file_name.split('.').pop()) {
       case 'JPG':
@@ -36,20 +45,20 @@ useEffect(()=>{
 
 },[])
 
+
+
 const fileHandler = async (idFile,fileName,filePath) => {
     setVisible(true)
     try {
-    let response = await fetch(`${process.env.NEXT_PUBLIC_NODE_SERVER}/getdocument/${idFile}?filePath=${filePath}`, {
+      let response = await fetch(`${process.env.NEXT_PUBLIC_NODE_SERVER}/getdocument/${idFile}?filePath=${filePath}`, {
         method: "GET",
         headers:{
             authorization: token,
         }
     })
-    
-
     const blob = await response.blob();
     const objectUrl = URL.createObjectURL(blob);
-
+    console.log(blob.type)
     switch(blob.type){
       case "image/png":
       case "image/PNG":
@@ -85,15 +94,19 @@ const fileHandler = async (idFile,fileName,filePath) => {
   return (
     <div>
 
-<Container gap={2} style={{flexDirection: 'column'}}>
-            <Container key={prop.idFile} onClick={async () =>  setModalFile(await fileHandler(prop.idFile,prop.file_name,prop.file_path)) } style={{backgroundColor: '#1F2122', borderRadius: "15px", marginBottom: '10px',flexDirection: 'row', display: 'flex' }} >             
+<Container  key={prop.idFile} gap={2} style={{flexDirection: 'column'}}>
+  <Container justify="center" style={{  marginBottom: '10px',flexDirection: 'row', display: 'flex' }}>
+            <Container  onClick={async () =>  setModalFile(await fileHandler(prop.idFile,prop.file_name,prop.file_path)) } style={{backgroundColor: '#1F2122', width:"90%" , borderRadius: "15px", marginBottom: '10px',flexDirection: 'row', display: 'flex' }} >             
                   <img src={image} style={{width: "50px", marginRight: "10%", margin: "2%"}} />
                   <div style={{flexDirection: 'column', display:'flex', justifyContent:'center'}}>
                     <p style={{color: "white"}}>ID: {prop.idFile}</p>
                     <p style={{color: "white",textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', width: '50vw'}}>Name:  {prop.file_name}</p>
                   </div>
             </Container>
-
+            
+            {deleteButton}
+            </Container>
+            
       </Container>
 
 

@@ -12,7 +12,7 @@ const handleAddRedirect = () =>{
     
     return(
     <>
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <div key={prop.key} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
     <Button onClick={handleAddRedirect}> {prop.children} </Button> 
     </div>
     </>

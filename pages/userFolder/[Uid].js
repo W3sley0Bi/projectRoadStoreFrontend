@@ -17,7 +17,7 @@ export default function UserFolders() {
   const token = useSelector((state) => state.token.value);
   const uid = useSelector((state) => state.uid.value);
   const role = useSelector((state) => state.role.value);
-  const [addFolder, setAddFoler] = useState()
+  const [addFolder, setAddFolder] = useState()
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -25,8 +25,8 @@ export default function UserFolders() {
     (async () => {
       //user role
       if(role == 1){
-        let addFolderbutton = <RedirectHandler route={`${Uid}/AddFiles`}> + AddFolder </RedirectHandler>
-        setAddFoler(addFolderbutton)
+        let addFolderbutton = <RedirectHandler route={`${Uid}/AddFolder`}> + AddFolder </RedirectHandler>
+        setAddFolder(addFolderbutton)
       }
 
       if (Uid == uid || role == 1) {
@@ -34,7 +34,7 @@ export default function UserFolders() {
         if (res === 401) {
           router.push("/Login");
         } else {
-
+          console.log(res)
           const folders = res.result.map((item) => (
             <Folder key={item.idFolder} idFolder={item.idFolder} Uid={Uid} name={item.name}> </Folder>
           ));

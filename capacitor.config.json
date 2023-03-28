@@ -1,0 +1,6 @@
+{
+  "appId": "roadstore.app",
+  "appName": "RoadStore",
+  "webDir": "out",
+  "bundledWebRuntime": false
+}

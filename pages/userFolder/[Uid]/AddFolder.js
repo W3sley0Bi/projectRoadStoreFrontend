@@ -5,6 +5,8 @@ import { Input } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
 import { useDropzone } from 'react-dropzone';
 import Layout from '../../../components/Layout';
+import { useSelector, useDispatch } from "react-redux";
+import { fetchFun } from "../../../js/fetchFun";
 
 export default function AddFiles(){
 
@@ -13,36 +15,53 @@ export default function AddFiles(){
     const [folder, setFolder] = useState("")
     const [files, setFiles] = useState([])
     const [folders, setFolders] = useState("")
-
+    const token = useSelector((state) => state.token.value);
+    const uid = useSelector((state) => state.uid.value);
+    const role = useSelector((state) => state.role.value);
+  
+    ///uid
+    //token/
+    //role
     useEffect(()=>{
         if(!router.isReady) return;
         // codes using router.query
 
-        const token = localStorage.getItem('token')
+    //     const token = localStorage.getItem('token')
 
-       // retrive folders from filesystem
-        axios.get(`${process.env.NEXT_PUBLIC_NODE_SERVER}/${Uid}/addFilesAccess`, {
-                headers:{
-                    Authorization: token,
-                }
-            })
-            .then(res=> { 
+    //    // retrive folders from filesystem
+    //     axios.get(`${process.env.NEXT_PUBLIC_NODE_SERVER}/${Uid}/addFilesAccess`, {
+    //             headers:{
+    //                 Authorization: token,
+    //             }
+    //         })
+    //         .then(res=> { 
+
+    (async () => {
+        //user role
+
+        if (Uid == uid || role == 1) {
+          const res = await fetchFun(`/${Uid}/addFilesAccess`, "GET", {}, token);
+          if (res === 401) {
+            router.push("/Login");
+          } else {
+  
                 if (!res.status == 200) {
                     alert("rispostal del server" + res.status)
                 }
+
+            }
+
+        } else {
+            router.push(`/userFolder/${uid}`);
+          }
                   
-            }).catch(err=> {
-            console.log(err)
-            
-            //if the user is not authenticated (if there is no token )...
-            router.push("/Login") // redirect
-        })
+            })()
+
     
     }, [router.isReady]);
 
     //sumbit forma data
-    const handleSubmit = (event) => {
-        //event.preventDefault()
+    const handleSubmit = () => {
 
         const formData = new FormData(); // create a new FormData instance
         formData.append("folder", folder); // append the folder value
@@ -54,11 +73,6 @@ export default function AddFiles(){
         formData.append("idUser", Uid)
 
         const token = localStorage.getItem('token')
-
-        //folderChecker
-        // if(folder){
-        //     console.log(folder)
-        // }
 
         
         axios.post(`${process.env.NEXT_PUBLIC_NODE_SERVER}/${Uid}/addFiles`, formData, {
