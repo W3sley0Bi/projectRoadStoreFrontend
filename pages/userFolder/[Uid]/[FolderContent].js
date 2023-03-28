@@ -36,11 +36,11 @@ export default function FolderContent(){
           if (res === 401) {
             router.push("/Login");
           } else {
-            
+                console.log(res)
                 const file = res.map(item => 
     
                 
-                   <FileModal key={item.idFile} idFile={item.idFile} file_name={item.file_name} file_path={item.file_path} ></FileModal>
+                   <FileModal key={item.idFile} idFile={item.idFile} file_name={item.file_name} file_data={item.file_data} file_type={item.file_type} ></FileModal>
                     
      
                     );
