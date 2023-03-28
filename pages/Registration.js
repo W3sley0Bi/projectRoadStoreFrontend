@@ -1,5 +1,4 @@
 
-import axios from 'axios';
 import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router'
 import { Input } from "@nextui-org/react";
