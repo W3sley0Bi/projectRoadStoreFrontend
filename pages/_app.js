@@ -4,6 +4,7 @@ import { NextUIProvider, Text } from "@nextui-org/react"
 import { Provider } from 'react-redux';
 import { store } from '../stores/store';
 import { theme } from "../js/theme"
+import "../styles/style.css"
 
 
 // const store = configureStore({

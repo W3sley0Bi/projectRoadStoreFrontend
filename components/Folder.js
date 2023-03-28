@@ -3,9 +3,10 @@ import {
     Link,
     Container,
   } from "@nextui-org/react";
+import { useRouter } from "next/router";
 
 export default function Folder(prop){
-    
+    const router = useRouter()
     return(
 
     <Container
@@ -16,7 +17,7 @@ export default function Folder(prop){
                 marginBottom: "10px",
               }}
             >
-              <Link href={`/userFolder/${prop.Uid}/${prop.idFolder}`}>
+              <Link onClick={() => router.push(`/userFolder/${prop.Uid}/${prop.idFolder}`)}>
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/716/716784.png "
                   style={{ width: "15%", marginRight: "10%" }}

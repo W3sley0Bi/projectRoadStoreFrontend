@@ -1,0 +1,10 @@
+[type="text"]{
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-user-scalable: no;
+    -moz-user-scalable: no;
+    -ms-user-scalable: no;
+    user-scalable: no;
+  }
+  

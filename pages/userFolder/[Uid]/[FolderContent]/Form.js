@@ -9,26 +9,29 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchFun } from "../../../../js/logoutFun";
 import { inputCheckName, inputCheckPass } from "../../../../js/inputCheckers";
 import { Document, Page, pdfjs } from 'react-pdf';
+//import DrawingCanvas from '../../../../components/DrowingCanvas'
 
 
 
 
 export default function Form() {
 
-    pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+    //pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-    const [numPages, setNumPages] = useState(null);
-    const [pageNumber, setPageNumber] = useState(1);
+    // const [numPages, setNumPages] = useState(null);
+    // const [pageNumber, setPageNumber] = useState(1);
   
-    function onDocumentLoadSuccess({ numPages }) {
-      setNumPages(numPages);
-    }
+    // function onDocumentLoadSuccess({ numPages }) {
+    //   setNumPages(numPages);
+    // }
 
   const { theme } = useTheme();
   return (
     <>
       <Layout>
-      <iframe src="/LK-Fillable.pdf" width="100%" height="800vh"></iframe>
+      {/* <iframe src="/LK-Fillable.pdf" width="100%" height="800vh"></iframe> */}
+
+     
 <Container
           gap={3}
           style={{ color: theme.colors.primary.value, margin: "auto" }}

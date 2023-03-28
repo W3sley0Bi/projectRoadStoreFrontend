@@ -126,7 +126,7 @@ export default function NavbarComp(){
                 </Dropdown.Menu>
               </Dropdown>
             </Navbar.Content>
-            {/* <Navbar.Collapse> THIS IS BRAKING EVERYTHING
+            <Navbar.Collapse> 
               {collapseItems.map((item, index) => (
                 <Navbar.CollapseItem
                   key={item}
@@ -147,7 +147,7 @@ export default function NavbarComp(){
                   </Link>
                 </Navbar.CollapseItem>
               ))}
-            </Navbar.Collapse> */}
+            </Navbar.Collapse>
           </Navbar>
           </>
           )

@@ -1,14 +1,16 @@
 
 import * as React from "react";
 import { Button, Grid, Card, Text, Row, Spacer, Link } from "@nextui-org/react";
-
+import { useRouter } from "next/router";
 
 export default function UserCard(prop){
+  const router = useRouter()
+
 
 return (
   
 <div key={prop.id}>
-<Link href={`/userFolder/${prop.id}`}>
+<Link onClick={() => router.push(`/userFolder/${prop.id}`)}>
   <Card isPressable>
     <Card.Body css={{ p: 0 }}>
       <Card.Image
@@ -34,7 +36,7 @@ return (
     </Card.Footer>
   </Card>
   <Spacer y={2} />
-</Link>
+  </Link>
 </div>
 )
 
