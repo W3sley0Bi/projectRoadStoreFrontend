@@ -3,13 +3,13 @@ import { Modal, useModal, Button, Text } from "@nextui-org/react";
 
 import { Canvas } from './Canvas'
 import { ClearCanvasButton } from './ClearCanvasButton';
-const DrawingCanvas = () => {
+const DrawingCanvas = ({children}) => {
   const { setVisible, bindings } = useModal();
 
   return (
 <div>
 <Button auto flat onPress={() => setVisible(true)}>
-  Sign
+  {children}
       </Button>
       {/* <canvas style={{backgroundColor: 'white'}} onMouseDown={startDrawing} ontouchstart={startDrawing} onMouseUp={finishDrawing} onTouchEnd={finishDrawing} onMouseMove={draw} ref={canvasRef}/> */}
 

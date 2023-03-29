@@ -62,7 +62,7 @@ export default function NavbarComp(){
             >
               {/* <AcmeLogo /> */}
               <Text b color="inherit" hideIn="xs">
-                ACME
+                RoadStore
               </Text>
             </Navbar.Brand>
             <Navbar.Content
