@@ -19,17 +19,18 @@ const DrawingCanvas = () => {
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
         {...bindings}
+        
       >
         <Modal.Header>
           <Text id="modal-title" size={18}>
-            ashdjkashdhakjhdjsahjas
+            Sign
           </Text>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{margin: 0, height: "100%", overflow: "hidden"}}>
           {/*  id="modal-description"*/}
           <Canvas/>
       <ClearCanvasButton/>
-      
+    
               </Modal.Body>
         <Modal.Footer>
           <Button flat auto color="error" onPress={() => setVisible(false)}>
