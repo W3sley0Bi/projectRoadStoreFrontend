@@ -14,7 +14,6 @@ const DrawingCanvas = () => {
       {/* <canvas style={{backgroundColor: 'white'}} onMouseDown={startDrawing} ontouchstart={startDrawing} onMouseUp={finishDrawing} onTouchEnd={finishDrawing} onMouseMove={draw} ref={canvasRef}/> */}
 
       <Modal
-        scroll
         fullScreen
         closeButton
         aria-labelledby="modal-title"
