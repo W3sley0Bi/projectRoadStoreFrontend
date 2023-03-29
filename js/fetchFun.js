@@ -1,7 +1,7 @@
 // cambaire tutte le get in post poi
 import axios from "axios";
 
-export const fetchFun = async (url, method, body, token) => {
+export const fetchFun = async (url, method, body, token, ) => {
   let res;
 
   switch (method) {

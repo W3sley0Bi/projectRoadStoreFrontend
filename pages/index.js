@@ -16,7 +16,13 @@ export default function Home() {
   const role = useSelector((state) => state.role.value);
   let router = useRouter();
 
+
+
+
   useEffect(() => {
+    if(navigator != undefined){
+      console.log(navigator.platform) 
+      console.log(navigator.userAgent)}
     (async () => {
       //user role
       if (role*1 === 2) {
@@ -49,10 +55,10 @@ export default function Home() {
             justify="flex-start"
         }`}
       </style>
-
       <Layout>
         <Grid.Container gap={2} className="gridContainer">
           {workers}
+         
         </Grid.Container>
       </Layout>
     </>

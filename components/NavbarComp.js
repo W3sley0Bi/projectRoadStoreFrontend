@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { Navbar, Link, Text, Avatar, Dropdown, Button, Card, Radio  } from "@nextui-org/react";
-import { logOut } from "../js/logoutFun";
+import { ActioKeyNav } from "../js/ActioKeyNav";
+import { useRouter } from "next/router";
 
 export default function NavbarComp(){
 
@@ -9,6 +10,7 @@ export default function NavbarComp(){
     const role = useSelector((state) => state.role.value);
     const [userImg,setUserImg] = useState("")
     const [userReg,setUserReg] = useState("")
+    const router = useRouter()
     
     useEffect(()=>{
         if(uid !=undefined){
@@ -24,7 +26,7 @@ export default function NavbarComp(){
         }
         //display user registration if admin
         if(role == 1){
-            let buttonReg = <Navbar.Link href="/Registration">User Registration</Navbar.Link>
+            let buttonReg = <Navbar.Link onClick={()=> router.push("/Registration")}>User Registration</Navbar.Link>
             setUserReg(buttonReg)
         }
 
@@ -33,14 +35,8 @@ export default function NavbarComp(){
 
 
         const collapseItems = [
+            "Home",
             "Profile",
-            "Dashboard",
-            "Activity",
-            "Analytics",
-            "System",
-            "Deployments",
-            "My Settings",
-            "Team Settings",
             "Help & Feedback",
             "Log Out",
           ];
@@ -71,9 +67,9 @@ export default function NavbarComp(){
               hideIn="xs"
               variant="highlight-rounded"
             >
-              <Navbar.Link isActive href="/">HOME</Navbar.Link>
+              <Navbar.Link onClick={() => router.push("/")}>Home</Navbar.Link>
               {userReg}
-              <Navbar.Link href="#">Pricing</Navbar.Link>
+              <Navbar.Link href="#">Messages</Navbar.Link>
               <Navbar.Link href="#">Company</Navbar.Link>
             </Navbar.Content>
             <Navbar.Content
@@ -94,7 +90,7 @@ export default function NavbarComp(){
                 <Dropdown.Menu
                   aria-label="User menu actions"
                   color="primary"
-                  onAction={(actionKey) => logOut(actionKey)}
+                  onAction={(actionKey) => ActioKeyNav(actionKey)}
                 >
                   <Dropdown.Item key="profile" css={{ height: "$18" }}>
                     <Text b color="inherit" css={{ d: "flex" }}>
@@ -105,21 +101,8 @@ export default function NavbarComp(){
                     
                     </Text>
                   </Dropdown.Item>
-                  {/* <Dropdown.Item key="settings" withDivider>
-                    My Settings
-                  </Dropdown.Item>
-                  <Dropdown.Item key="team_settings">Team Settings</Dropdown.Item>
-                  <Dropdown.Item key="analytics" withDivider>
-                    Analytics
-                  </Dropdown.Item>
-                  <Dropdown.Item key="system">System</Dropdown.Item>
-                  <Dropdown.Item key="configurations">Configurations</Dropdown.Item>
-                  <Dropdown.Item key="help_and_feedback" withDivider>
-                    Help & Feedback
-                  </Dropdown.Item> */}
                 
                   <Dropdown.Item key="logout" withDivider color="error">
-    
                     Log Out
                   </Dropdown.Item>
                 
@@ -132,16 +115,28 @@ export default function NavbarComp(){
                   key={item}
                   activeColor="primary"
                   css={{
-                    color: index === collapseItems.length - 1 ? "$error" : "",
+                    color: index === collapseItems.length - 1 ? "$error" : index == 1 || index == 2? "#242424" : "", 
                   }}
-                  isActive={index === 2}
+                 
+
                 >
                   <Link
                     color="inherit"
                     css={{
                       minWidth: "100%",
-                      minHeight: "100%",                }}
-                    href="#"
+                      minHeight: "100%", 
+                    
+                      }}
+                    onClick={()=>{switch (item) {
+                      case "Log Out":
+                        ActioKeyNav("logout")
+                        break;
+                      case "Home":
+                        router.push("/")
+                          break;
+                      default:
+                        break;
+                    }}}
                   >
                     {item}
                   </Link>

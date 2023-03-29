@@ -24,20 +24,9 @@ export default function AddFiles(){
     //role
     useEffect(()=>{
         if(!router.isReady) return;
-        // codes using router.query
-
-    //     const token = localStorage.getItem('token')
-
-    //    // retrive folders from filesystem
-    //     axios.get(`${process.env.NEXT_PUBLIC_NODE_SERVER}/${Uid}/addFilesAccess`, {
-    //             headers:{
-    //                 Authorization: token,
-    //             }
-    //         })
-    //         .then(res=> { 
 
     (async () => {
-        //user role
+
 
         if (Uid == uid || role == 1) {
           const res = await fetchFun(`/${Uid}/addFilesAccess`, "GET", {}, token);
@@ -61,7 +50,7 @@ export default function AddFiles(){
     }, [router.isReady]);
 
     //sumbit forma data
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
 
         const formData = new FormData(); // create a new FormData instance
         formData.append("folder", folder); // append the folder value
@@ -72,10 +61,9 @@ export default function AddFiles(){
         }
         formData.append("idUser", Uid)
 
-        const token = localStorage.getItem('token')
 
-        
-        axios.post(`${process.env.NEXT_PUBLIC_NODE_SERVER}/${Uid}/addFiles`, formData, {
+       // don not change this post
+        axios.post(`${process.env.NEXT_PUBLIC_NODE_SERVER}/${Uid}/addFolder`, formData, {
             headers:{
                 Authorization: token,
                 'Content-Type': 'multipart/form-data',
@@ -98,9 +86,9 @@ export default function AddFiles(){
             setFiles(acceptedFiles)
         },
         multiple: true,
-        accept: 'image/*, .pdf, .doc, .docx, .xls, .xlsx, .csv',
+        accept: 'image/*, .pdf',
     })
-
+//.doc, .docx, .xls, .xlsx, .csv
     return(
         
         <>

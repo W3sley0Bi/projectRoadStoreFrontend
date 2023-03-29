@@ -1,6 +1,6 @@
 import { Modal, useModal } from "@nextui-org/react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import {
   Button,
   Grid,
@@ -27,21 +27,25 @@ export default function FileModal(prop) {
   const uid = useSelector((state) => state.uid.value);
   const role = useSelector((state) => state.role.value);
   const [deleteButton, setDeleteButton] = useState();
-  const [contDisplay, setContDisplay] = useState(<Loader></Loader>)
+  const [loader, setLoader] = useState(<Loader></Loader>)
 
-  useEffect(() => {
+  useMemo(() => {
     if (role == 1) {
       setDeleteButton(
+        <>        <Spacer y={.5}/>
         <img
           src="https://cdn-icons-png.flaticon.com/512/1828/1828851.png"
           width="50px"
           height="50px"
           alt="delete"
         />
+        </>
+
       );
     }
 
    (async () => { 
+    {setLoader(null)}
      switch (prop.file_type) {
       case "image/jpeg":
       case "image/jpg":
@@ -64,81 +68,8 @@ export default function FileModal(prop) {
         break;
     }
 
-    if (prop.file_name) {
-
-      setContDisplay(
-        <Container
-          key={prop.idFile}
-          gap={2}
-          style={{ flexDirection: "column" }}
-        >
-          <Container
-            justify="center"
-            style={{
-              marginBottom: "10px",
-              flexDirection: "row",
-              display: "flex",
-            }}
-          >
-            <Container
-              onClick={async () =>
-                setModalFile(
-                  await fileHandler(
-                    prop.idFile,
-                    prop.file_name,
-                    prop.file_data,
-                    prop.file_type
-                  )
-                )
-              }
-              style={{
-                backgroundColor: "#1F2122",
-                width: "90%",
-                borderRadius: "15px",
-                marginBottom: "10px",
-                flexDirection: "row",
-                display: "flex",
-              }}
-            >
-              <img
-                src={image}
-                style={{ width: "50px", marginRight: "10%", margin: "2%" }}
-              />
-              <div
-                style={{
-                  flexDirection: "column",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <p style={{ color: "white" }}>ID: {prop.idFile}</p>
-                <p
-                  style={{
-                    color: "white",
-                    textOverflow: "ellipsis",
-                    overflow: "hidden",
-                    whiteSpace: "nowrap",
-                    width: "50vw",
-                  }}
-                >
-                  Name: {prop.file_name}
-                </p>
-              </div>
-            </Container>
-
-            {deleteButton}
-          </Container>
-        </Container>
-      );
-
- 
-
-    }else{
-      setContDisplay(<NoData></NoData>)
-    }
-
   })()
-  }, []);
+  },[]);
 
   const fileHandler = async (idFile, fileName, fileData, fileType) => {
     setVisible(true);
@@ -177,7 +108,72 @@ export default function FileModal(prop) {
 
   return (
     <div>
-      {contDisplay}
+      {loader}
+      { prop.file_name?
+    
+        <Container
+          key={prop.idFile}
+          gap={2}
+          style={{ flexDirection: "column" }}
+        >
+          <Row
+          
+          >
+            <Container
+              onClick={async () =>
+                setModalFile(
+                  await fileHandler(
+                    prop.idFile,
+                    prop.file_name,
+                    prop.file_data,
+                    prop.file_type
+                  )
+                )
+              }
+              
+              style={{
+                backgroundColor: "#1F2122",
+                borderRadius: "15px",
+                marginBottom: "10px",
+                flexDirection: "row",
+                display: "flex",
+              }}
+            >
+              <img
+                src={image}
+                style={{ width: "50px", marginRight: "10%", margin: "2%" }}
+              />
+              <div
+                style={{
+                  flexDirection: "column",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <p style={{ color: "white" }}>ID: {prop.idFile}</p>
+                <p
+                  style={{
+                    color: "white",
+                    textOverflow: "ellipsis",
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    width: "40vw",
+                  }}
+                >
+                  Name: {prop.file_name}
+                </p>
+              </div>
+            </Container>
+           
+                {deleteButton}
+          </Row>
+        </Container>
+      
+      : <NoData></NoData>
+}
+
+
+
       <Modal
         scroll
         fullScreen

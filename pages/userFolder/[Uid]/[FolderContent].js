@@ -27,7 +27,7 @@ export default function FolderContent(){
         let form = <RedirectHandler key={1} route={`/userFolder/${Uid}/${FolderContent}/Form`}> I've Finished </RedirectHandler>
         setFormButton(form)
       }else if(role*1 === 1){
-        let addFilePage = <RedirectHandler key={2} route={`/userFolder/${Uid}/${FolderContent}/AddFiles`}> + AddFiles </RedirectHandler>
+        let addFilePage = <RedirectHandler disabled={"true"} key={2} route={`/userFolder/${Uid}/${FolderContent}/AddFiles`}> + AddFiles </RedirectHandler>
         setAddFile(addFilePage)
       }
 
@@ -39,10 +39,10 @@ export default function FolderContent(){
                 console.log(res)
                 const file = res.map(item => 
     
-                
                    <FileModal key={item.idFile} idFile={item.idFile} file_name={item.file_name} file_data={item.file_data} file_type={item.file_type} ></FileModal>
                     
                     );
+
                     setFile(file) 
             
                 }

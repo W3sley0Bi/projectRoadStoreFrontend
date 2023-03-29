@@ -10,6 +10,7 @@ import { setToken } from "../../stores/store";
 import Layout from "../../components/Layout";
 import { fetchFun } from "../../js/fetchFun"
 import Loader from "../../components/Loader"
+import NoData from "../../components/NoData";
 
 export default function UserFolders() {
   const router = useRouter();
@@ -35,11 +36,14 @@ export default function UserFolders() {
         if (res === 401) {
           router.push("/Login");
         } else {
-          console.log(res)
+          if(res.result.length > 0){
           const folders = res.result.map((item) => (
             <Folder key={item.idFolder} idFolder={item.idFolder} Uid={Uid} name={item.name}> </Folder>
           ));
           setFolders(folders);
+          }else{
+            setFolders(<NoData></NoData>);
+          }
         }
       } else {
         router.push(`/userFolder/${uid}`);
