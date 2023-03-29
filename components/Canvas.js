@@ -17,9 +17,9 @@ export function Canvas() {
   return (
     <canvas
       style={{backgroundColor: "white"}}
-      onMouseDown={startDrawing}
-      onMouseUp={finishDrawing}
-      onMouseMove={draw}
+      onPointerDown={startDrawing}
+      onPointerUp={finishDrawing}
+      onPointerMove={draw}
       ref={canvasRef}
     />
   );
