@@ -7,9 +7,10 @@ import { setToken } from "../stores/store";
 import Layout from "../components/Layout";
 import UserCard from "../components/UserCard";
 import { fetchFun } from "../js/fetchFun";
+import Loader from "../components/Loader"
 
 export default function Home() {
-  const [workers, setWorkers] = useState([]);
+  const [workers, setWorkers] = useState(<Loader></Loader>);
   const token = useSelector((state) => state.token.value);
   const uid = useSelector((state) => state.uid.value);
   const role = useSelector((state) => state.role.value);
@@ -34,7 +35,7 @@ export default function Home() {
             name={person.name}
           ></UserCard>
         ));
-        setWorkers(items);
+       setWorkers(items);
       }
     }
     })();

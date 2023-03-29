@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 import { store } from '../stores/store';
 import { theme } from "../js/theme"
 import "../styles/style.css"
+import "../styles/loader.css"
+import { CanvasProvider } from "../components/CanvasContext";
 
 
 // const store = configureStore({
@@ -22,7 +24,9 @@ function MyApp({ Component, pageProps }) {
     
     <NextUIProvider theme={theme} >
         <Provider store={store}>
+          <CanvasProvider>
       <Component {...pageProps} />
+      </CanvasProvider>
       </Provider>
     </NextUIProvider>
   );

@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchFun } from "../../../../js/logoutFun";
 import { inputCheckName, inputCheckPass } from "../../../../js/inputCheckers";
 import { Document, Page, pdfjs } from 'react-pdf';
-//import DrawingCanvas from '../../../../components/DrowingCanvas'
+import DrawingCanvas from '../../../../components/DrowingCanvas'
 
 
 
@@ -59,6 +59,8 @@ export default function Form() {
               label="label"
               placeholder="Enter your amazing ideas."
             />
+
+            <DrawingCanvas></DrawingCanvas>
           </Col>
         </Container>
 

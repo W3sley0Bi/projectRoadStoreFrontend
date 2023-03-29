@@ -15,6 +15,8 @@ import {
 import Layout from "./Layout";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchFun } from "../js/fetchFun";
+import Loader from "./Loader"
+import NoData from "./NoData";
 
 export default function FileModal(prop) {
   const { setVisible, bindings } = useModal();
@@ -25,6 +27,7 @@ export default function FileModal(prop) {
   const uid = useSelector((state) => state.uid.value);
   const role = useSelector((state) => state.role.value);
   const [deleteButton, setDeleteButton] = useState();
+  const [contDisplay, setContDisplay] = useState(<Loader></Loader>)
 
   useEffect(() => {
     if (role == 1) {
@@ -38,23 +41,103 @@ export default function FileModal(prop) {
       );
     }
 
-    switch (prop.file_name.split(".").pop()) {
-      case "JPG":
-      case "jpg":
-      case "PNG":
-      case "png":
-      case "GIF":
-      case "gif":
-        setImage("https://cdn-icons-png.flaticon.com/512/1829/1829586.png");
+   (async () => { 
+     switch (prop.file_type) {
+      case "image/jpeg":
+      case "image/jpg":
+      case "image/png":
+      case "image/gif":
+      case "image/tiff":
+      case "image/webp":
+      case "image/svg+xml":
+      case "image/bmp":
+      case "image/x-icon":
+      case "image/heif":
+      case "image/heic":
+        await setImage("https://cdn-icons-png.flaticon.com/512/1829/1829586.png");
         break;
-      case "PDF":
-      case "pdf":
-        setImage("https://cdn-icons-png.flaticon.com/512/337/337946.png");
+      case "application/pdf":
+        await setImage("https://cdn-icons-png.flaticon.com/512/337/337946.png");
         break;
       default:
-        setImage("https://cdn-icons-png.flaticon.com/512/4725/4725544.png");
+        await setImage("https://cdn-icons-png.flaticon.com/512/4725/4725544.png");
         break;
     }
+
+    if (prop.file_name) {
+
+      setContDisplay(
+        <Container
+          key={prop.idFile}
+          gap={2}
+          style={{ flexDirection: "column" }}
+        >
+          <Container
+            justify="center"
+            style={{
+              marginBottom: "10px",
+              flexDirection: "row",
+              display: "flex",
+            }}
+          >
+            <Container
+              onClick={async () =>
+                setModalFile(
+                  await fileHandler(
+                    prop.idFile,
+                    prop.file_name,
+                    prop.file_data,
+                    prop.file_type
+                  )
+                )
+              }
+              style={{
+                backgroundColor: "#1F2122",
+                width: "90%",
+                borderRadius: "15px",
+                marginBottom: "10px",
+                flexDirection: "row",
+                display: "flex",
+              }}
+            >
+              <img
+                src={image}
+                style={{ width: "50px", marginRight: "10%", margin: "2%" }}
+              />
+              <div
+                style={{
+                  flexDirection: "column",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <p style={{ color: "white" }}>ID: {prop.idFile}</p>
+                <p
+                  style={{
+                    color: "white",
+                    textOverflow: "ellipsis",
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    width: "50vw",
+                  }}
+                >
+                  Name: {prop.file_name}
+                </p>
+              </div>
+            </Container>
+
+            {deleteButton}
+          </Container>
+        </Container>
+      );
+
+ 
+
+    }else{
+      setContDisplay(<NoData></NoData>)
+    }
+
+  })()
   }, []);
 
   const fileHandler = async (idFile, fileName, fileData, fileType) => {
@@ -83,7 +166,8 @@ export default function FileModal(prop) {
         case "image/heic":
           return <img src={url} />;
           break;
-        default: return <h1>file format not supported yet</h1>
+        default:
+          return <h1>file format not supported yet</h1>;
           break;
       }
     } catch (error) {
@@ -93,65 +177,7 @@ export default function FileModal(prop) {
 
   return (
     <div>
-      <Container key={prop.idFile} gap={2} style={{ flexDirection: "column" }}>
-        <Container
-          justify="center"
-          style={{
-            marginBottom: "10px",
-            flexDirection: "row",
-            display: "flex",
-          }}
-        >
-          <Container
-            onClick={async () =>
-              setModalFile(
-                await fileHandler(
-                  prop.idFile,
-                  prop.file_name,
-                  prop.file_data,
-                  prop.file_type
-                )
-              )
-            }
-            style={{
-              backgroundColor: "#1F2122",
-              width: "90%",
-              borderRadius: "15px",
-              marginBottom: "10px",
-              flexDirection: "row",
-              display: "flex",
-            }}
-          >
-            <img
-              src={image}
-              style={{ width: "50px", marginRight: "10%", margin: "2%" }}
-            />
-            <div
-              style={{
-                flexDirection: "column",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <p style={{ color: "white" }}>ID: {prop.idFile}</p>
-              <p
-                style={{
-                  color: "white",
-                  textOverflow: "ellipsis",
-                  overflow: "hidden",
-                  whiteSpace: "nowrap",
-                  width: "50vw",
-                }}
-              >
-                Name: {prop.file_name}
-              </p>
-            </div>
-          </Container>
-
-          {deleteButton}
-        </Container>
-      </Container>
-
+      {contDisplay}
       <Modal
         scroll
         fullScreen

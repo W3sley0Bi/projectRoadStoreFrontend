@@ -9,11 +9,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { setToken } from "../../stores/store";
 import Layout from "../../components/Layout";
 import { fetchFun } from "../../js/fetchFun"
+import Loader from "../../components/Loader"
 
 export default function UserFolders() {
   const router = useRouter();
   const { Uid } = router.query;
-  const [folders, setFolders] = useState("");
+  const [folders, setFolders] = useState(<Loader></Loader>);
   const token = useSelector((state) => state.token.value);
   const uid = useSelector((state) => state.uid.value);
   const role = useSelector((state) => state.role.value);

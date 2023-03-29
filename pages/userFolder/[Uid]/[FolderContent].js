@@ -6,13 +6,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchFun } from '../../../js/fetchFun';
 import RedirectHandler from "../../../components/RedirectHandler";
 import { Container, Row, Col, Spacer } from "@nextui-org/react";
-
+import Loader from "../../../components/Loader"
 
 export default function FolderContent(){
 
     const router = useRouter()
     const { Uid,FolderContent } = router.query
-    const [file, setFile] = useState([])
+    const [file, setFile] = useState(<Loader></Loader>)
     const [formButton,setFormButton] = useState()
     const [addFile,setAddFile] = useState()
     const token = useSelector((state) => state.token.value);
