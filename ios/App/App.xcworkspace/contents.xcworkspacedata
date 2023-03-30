@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:App.xcodeproj">
+      location = "group:/Users/wesleyobi/Desktop/lk-admin/ios/App/LK-Installateurs.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

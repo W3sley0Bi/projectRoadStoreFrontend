@@ -23,6 +23,7 @@
     "react-redux": "^8.0.5"
   },
   "devDependencies": {
+    "@capacitor/assets": "^2.0.4",
     "@capacitor/cli": "^4.7.1"
   }
 }

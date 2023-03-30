@@ -44,3 +44,4 @@ const DrawingCanvas = ({children}) => {
 };
 
 export default DrawingCanvas;
+

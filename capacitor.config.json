@@ -1,28 +1,8 @@
 {
   "appId": "roadstore.app",
-  "appName": "RoadStore",
+  "appName": "LKInstallateurs",
   "webDir": "out",
   "bundledWebRuntime": false,
-  "plugins": {
-    "SplashScreen": {
-      "launchAutoHide": true,
-      "androidScaleType": "CENTER_CROP",
-      "splashFullScreen": true,
-      "splashImmersive": false,
-      "backgroundColor": "#ffffff",
-      "showSpinner": true,
-      "spinnerColor": "#ffffff",
-      "spinnerLines": 4,
-      "spinnerLinesWidth": 2,
-      "spinnerCirclesRadius": 18,
-      "spinnerCirclesCount": 12,
-      "spinnerCirclesSpeed": 12,
-      "spinnerDuration": 0,
-      "splashShowOnlyFirstTime": false,
-      "splashHideOnFinish": true,
-      "splashFadeOutDuration": 300
-    }
-  },
   "serverUrl": "https://sparkling-sweatpants-colt.cyclic.app"
 
 }

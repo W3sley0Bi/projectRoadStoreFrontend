@@ -16,7 +16,7 @@ export function Canvas() {
 
   return (
     <canvas
-      style={{backgroundColor: "white"}}
+      style={{backgroundColor: "white", touchAction: "none"}}
       onPointerDown={startDrawing}
       onPointerUp={finishDrawing}
       onPointerMove={draw}
