@@ -1,23 +1,19 @@
 // import { useState, useEffect, useMemo } from "react";
 // import { useRouter } from "next/router";
-import { Input,Checkbox } from "@nextui-org/react";
+import { Input, Radio } from "@nextui-org/react";
 import { useTheme, NextUIProvider, Text, Textarea, Button } from "@nextui-org/react";
 import Layout from "./Layout";
 import { Container, Row, Col, Spacer } from "@nextui-org/react";
-// import { useSelector, useDispatch } from "react-redux";
-// import { fetchFun } from "../js/logoutFun";
-// import { inputCheckName, inputCheckPass } from "../js/inputCheckers";
-// import { Document, Page, pdfjs } from "react-pdf";
 import DrawingCanvas from "./DrowingCanvas";
 
 export default function FormInstallLK() {
 
-const [formState, setFormState] = useState({
-  field1: '',
-  field2: '',
-  email: '',
-  password: ''
-});
+// const [formState, setFormState] = useState({
+//   field1: '',
+//   field2: '',
+//   email: '',
+//   password: ''
+// });
 
 function handleInputChange(event) {
   const { name, value } = event.target;
@@ -84,7 +80,7 @@ function handleInputChange(event) {
           <Spacer y={0.2} />
           <Radio.Group 
       color="secondary"
-      defaultValue={"check1"}
+      defaultValue="check1"
     >
       <Radio value="check1">LA RECEPTION EST PRONONCEE SANS RESERVE AVEC EFFET A LA DATE DU <Input type="date" placeholder="field1"></Input></Radio>
       <Radio value="check2">LA RECEPTION EST PRONONCEE AVEC RESERVES MENTIONNEES DANS L'ETAT DES RESERVES FIGURANT AU VERSO AVEC EFFET A LA DATE DU<Input type="date" placeholder="field1"></Input></Radio>

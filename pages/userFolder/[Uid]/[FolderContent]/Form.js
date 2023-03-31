@@ -1,13 +1,10 @@
-import { useState, useEffect, useMemo } from "react";
-import { useRouter } from "next/router";
-import { Input,Checkbox } from "@nextui-org/react";
-import { Button } from "@nextui-org/react";
 import { useTheme, NextUIProvider, Text, Textarea , Spacer, Container} from "@nextui-org/react";
 import Layout from "../../../../components/Layout";
 import FormInstallLK from "../../../../components/FormInstallLK"
 
 export default function Form() {
     const { theme } = useTheme();
+    
 
   return (
     <>
