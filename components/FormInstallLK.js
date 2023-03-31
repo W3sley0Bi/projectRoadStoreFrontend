@@ -12,8 +12,22 @@ import DrawingCanvas from "./DrowingCanvas";
 
 export default function FormInstallLK() {
 
+const [formState, setFormState] = useState({
+  field1: '',
+  field2: '',
+  email: '',
+  password: ''
+});
 
+function handleInputChange(event) {
+  const { name, value } = event.target;
+  setFormState(prevState => ({
+    ...prevState,
+    [name]: value
+  }));
+}
   const { theme } = useTheme();
+
   return (
     <>
 
@@ -28,7 +42,7 @@ export default function FormInstallLK() {
             <Spacer y={1} />
     
             <Spacer y={1} />
-            <Input label="M." type="text" placeholder="field1"></Input>
+            <Input label="M." type="text" placeholder="field1" name="filed1" onChange={handleInputChange}></Input>
             <Spacer y={.5} />
             <Text>INSTALLATEUR DEA - WORKY.</Text>
             <Spacer y={0.5} />
@@ -41,7 +55,7 @@ export default function FormInstallLK() {
             <Spacer y={1} />
           
 
-            <Input label="M." type="text" placeholder="field1"></Input>
+            <Input label="M." type="text" placeholder="field2" name="filed2" onChange={handleInputChange} ></Input>
             <Spacer y={1} />
             <Text>RESPONSABLE SITE MATEXPERT_BMW/MINI_VILLE_LA_GRAND AC + GAZ</Text>
             <Spacer y={0.5} />
@@ -51,7 +65,7 @@ export default function FormInstallLK() {
             CONCERNANT LES TRAVAUX EXECUTES PAR L'ENTREPRISE CITEE CI-DESSUS EN DATE DU
             </Text>
             <Spacer y={1} />
-            <Input type="date" placeholder="field1"></Input>
+            <Input type="date"  placeholder="fieldDate1" name="filedDate1" onChange={handleInputChange}></Input>
             <Spacer y={1} />
           <details style={{background: "none", color: "#fff"}}>
             <summary> 🔽 TRAVAUX EFFECTUES : SELON CONFIRMATION DE COMMANDE CC4696</summary>
@@ -68,18 +82,18 @@ export default function FormInstallLK() {
           <Spacer y={0.5} />
           <Text>LE MAITRE D'OUVRAGE (OU CLIENT) DECLARE QUE :</Text>
           <Spacer y={0.2} />
-          <Checkbox.Group
+          <Radio.Group 
       color="secondary"
-      defaultValue={["check1","check2","check3"]}
+      defaultValue={"check1"}
     >
-      <Checkbox value="check1">LA RECEPTION EST PRONONCEE SANS RESERVE AVEC EFFET A LA DATE DU <Input type="date" placeholder="field1"></Input></Checkbox>
-      <Checkbox value="check2">LA RECEPTION EST PRONONCEE AVEC RESERVES MENTIONNEES DANS L'ETAT DES RESERVES FIGURANT AU VERSO AVEC EFFET A LA DATE DU<Input type="date" placeholder="field1"></Input></Checkbox>
+      <Radio value="check1">LA RECEPTION EST PRONONCEE SANS RESERVE AVEC EFFET A LA DATE DU <Input type="date" placeholder="field1"></Input></Radio>
+      <Radio value="check2">LA RECEPTION EST PRONONCEE AVEC RESERVES MENTIONNEES DANS L'ETAT DES RESERVES FIGURANT AU VERSO AVEC EFFET A LA DATE DU<Input type="date" placeholder="field1"></Input></Radio>
       
-      <Checkbox value="check3">LA RECEPTION EST REFUSEE OU DIFFEREE (RAYER LA MENTION INUTILE) POUR LES MOTIFS SUIVANTS :</Checkbox>
+      <Radio value="check3">LA RECEPTION EST REFUSEE OU DIFFEREE (RAYER LA MENTION INUTILE) POUR LES MOTIFS SUIVANTS :</Radio>
 
     <Spacer y={0.5} />
     
-          </Checkbox.Group>
+          </Radio.Group>
           <Text>LES GARANTIES DECOULANT DES ARTICLES 1792, 1792-2 ET 1792-3 DU CODE CIVIL COMMENCENT A COURIR A COMPTER DE LA SIGNATURE DU PRESENT PROCES-VERBAL, AVEC OU SANS RESERVE.
             LA SIGNATURE DU PROCES-VERBAL ET LE REGLEMENT DES TRAVAUX AUTORISENT LE MAITRE D'OUVRAGE (OU CLIENT) SOUSSIGNE A PRENDRE POSSESSION DE L'OUVRAGE.</Text>
             <Spacer y={1} />
