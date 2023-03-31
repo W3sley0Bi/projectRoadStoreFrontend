@@ -32,9 +32,10 @@ export default function Home() {
       console.log(res)
      // alert(res)
       if (res === 401) {
+
         router.push("/Login");
       } else {
-        const items = res.result.map((person) => (
+        const items = res.map((person) => (
           <UserCard
             key={person.idUser}
             id={person.idUser}

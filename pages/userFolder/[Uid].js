@@ -36,8 +36,8 @@ export default function UserFolders() {
         if (res === 401) {
           router.push("/Login");
         } else {
-          if(res.result.length > 0){
-          const folders = res.result.map((item) => (
+          if(res.length > 0){
+          const folders = res.map((item) => (
             <Folder key={item.idFolder} idFolder={item.idFolder} Uid={Uid} name={item.name}> </Folder>
           ));
           setFolders(folders);
