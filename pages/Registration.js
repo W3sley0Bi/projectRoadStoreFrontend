@@ -36,7 +36,7 @@ export default function Registration(){
   },[]);
 
   const handleSubmit = async (event) => {
-  if (inputCheckName(username) == "error" &&  inputCheckPassword(username) == "error" || username == "" && password == ""){
+  if (inputCheckName(username) == "error" &&  inputCheckPass(username) == "error" || username == "" && password == ""){
     alert("Input values not valid")
   }else{ 
     const res = await fetchFun("/registration", "POST", {username,name,surname, email,password}, token);

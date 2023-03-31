@@ -61,7 +61,7 @@ function handleInputChange(event) {
             CONCERNANT LES TRAVAUX EXECUTES PAR L'ENTREPRISE CITEE CI-DESSUS EN DATE DU
             </Text>
             <Spacer y={1} />
-            <Input type="date"  placeholder="fieldDate1" name="filedDate1" onChange={handleInputChange}></Input>
+            <Input type="date" placeholder="DD-MM-YYYY" name="filedDate1" onChange={handleInputChange}></Input>
             <Spacer y={1} />
           <details style={{background: "none", color: "#fff"}}>
             <summary> 🔽 TRAVAUX EFFECTUES : SELON CONFIRMATION DE COMMANDE CC4696</summary>
@@ -80,20 +80,17 @@ function handleInputChange(event) {
           <Spacer y={0.2} />
           <Radio.Group 
       color="secondary"
-      defaultValue="check1"
+      defaultValue="radio1"
     >
-      <Radio value="check1">LA RECEPTION EST PRONONCEE SANS RESERVE AVEC EFFET A LA DATE DU <Input type="date" placeholder="field1"></Input></Radio>
-      <Radio value="check2">LA RECEPTION EST PRONONCEE AVEC RESERVES MENTIONNEES DANS L'ETAT DES RESERVES FIGURANT AU VERSO AVEC EFFET A LA DATE DU<Input type="date" placeholder="field1"></Input></Radio>
-      
-      <Radio value="check3">LA RECEPTION EST REFUSEE OU DIFFEREE (RAYER LA MENTION INUTILE) POUR LES MOTIFS SUIVANTS :</Radio>
-
-    <Spacer y={0.5} />
-    
+      <Radio value="radio1">LA RECEPTION EST PRONONCEE SANS RESERVE AVEC EFFET A LA DATE DU <Input type="date" placeholder="DD-MM-YYYY" name="filedDate2" onChange={handleInputChange} ></Input></Radio>
+      <Radio value="radio2">LA RECEPTION EST PRONONCEE AVEC RESERVES MENTIONNEES DANS L'ETAT DES RESERVES FIGURANT AU VERSO AVEC EFFET A LA DATE DU<Input type="date" placeholder="DD-MM-YYYY" name="filedDate3" onChange={handleInputChange}></Input></Radio>
+      <Radio value="radio3">LA RECEPTION EST REFUSEE OU DIFFEREE (RAYER LA MENTION INUTILE) POUR LES MOTIFS SUIVANTS :</Radio>
           </Radio.Group>
+          <Spacer y={0.5} />
           <Text>LES GARANTIES DECOULANT DES ARTICLES 1792, 1792-2 ET 1792-3 DU CODE CIVIL COMMENCENT A COURIR A COMPTER DE LA SIGNATURE DU PRESENT PROCES-VERBAL, AVEC OU SANS RESERVE.
             LA SIGNATURE DU PROCES-VERBAL ET LE REGLEMENT DES TRAVAUX AUTORISENT LE MAITRE D'OUVRAGE (OU CLIENT) SOUSSIGNE A PRENDRE POSSESSION DE L'OUVRAGE.</Text>
             <Spacer y={1} />
-        <Text>FAIT A VILLE LA GRAND, LE </Text> <Spacer y={0.2} /> <Input  type="date"></Input> <Spacer y={0.2} /> <Text>EN 2 EXEMPLAIRES (1 POUR CHACUNE DES PARTIES) SIGNATURE DU REPRESENTANT DE L'ENTREPRISE SIGNATURE DU MAITRE D'OUVRAGE (OU CLIENT)</Text>
+        <Text>FAIT A VILLE LA GRAND, LE </Text> <Spacer y={0.2} /> <Input  type="date" placeholder="DD-MM-YYYY" name="filedDate4" onChange={handleInputChange}></Input> <Spacer y={0.2} /> <Text>EN 2 EXEMPLAIRES (1 POUR CHACUNE DES PARTIES) SIGNATURE DU REPRESENTANT DE L'ENTREPRISE SIGNATURE DU MAITRE D'OUVRAGE (OU CLIENT)</Text>
           <Spacer y={2} />
           
           
