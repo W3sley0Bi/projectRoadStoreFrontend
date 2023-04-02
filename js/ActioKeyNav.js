@@ -4,7 +4,7 @@ export function ActioKeyNav(key) {
       localStorage.removeItem("token");
       localStorage.removeItem("uid");
       localStorage.removeItem("role");
-      window.location.replace("/Login");
+      window.location.replace("/Login"); //check if this fun is working
       break;
 
     default:

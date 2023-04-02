@@ -3,13 +3,26 @@ import { Modal, useModal, Button, Text } from "@nextui-org/react";
 
 import { Canvas } from './Canvas'
 import { ClearCanvasButton } from './ClearCanvasButton';
-const DrawingCanvas = ({children}) => {
+const DrawingCanvas = (props) => {
   const { setVisible, bindings } = useModal();
+
+  // const canvasRef = useRef(null);
+  const [dataImg, setDataURL] = useState(null);
+
+  const Callback = (prop) => {
+    const canvas = prop.current
+    if(canvas != null ){
+    const dataURL = canvas.toDataURL();
+    setDataURL(dataURL);   
+    }
+  };
+
 
   return (
 <div>
+
 <Button auto flat onPress={() => setVisible(true)}>
-  {children}
+  {props.children}
       </Button>
       {/* <canvas style={{backgroundColor: 'white'}} onMouseDown={startDrawing} ontouchstart={startDrawing} onMouseUp={finishDrawing} onTouchEnd={finishDrawing} onMouseMove={draw} ref={canvasRef}/> */}
 
@@ -27,8 +40,9 @@ const DrawingCanvas = ({children}) => {
           </Text>
         </Modal.Header>
         <Modal.Body style={{margin: 0, height: "100%", overflow: "hidden"}}>
-          {/*  id="modal-description"*/}
-          <Canvas/>
+          
+          <Canvas dataBack={Callback}/>
+
       <ClearCanvasButton/>
     
               </Modal.Body>
@@ -36,7 +50,7 @@ const DrawingCanvas = ({children}) => {
           <Button flat auto color="error" onPress={() => setVisible(false)}>
             Close
           </Button>
-          {/* <Button onPress={() => setVisible(false)}>Agree</Button> */}
+          <Button onPress={()=>  {setVisible(false); props.dataBack({dataImg: dataImg, id:props.id})}}>Agree</Button>
         </Modal.Footer>
       </Modal>
     </div>

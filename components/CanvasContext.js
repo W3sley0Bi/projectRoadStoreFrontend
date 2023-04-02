@@ -10,7 +10,6 @@ export const CanvasProvider = ({ children }) => {
   const prepareCanvas = () => {
     const canvas = canvasRef.current
 
-    
     canvas.width = window.innerWidth * 2;
     canvas.height = window.innerHeight * 2;
     canvas.style.width = `${window.innerWidth}dp`;
@@ -23,6 +22,9 @@ export const CanvasProvider = ({ children }) => {
     context.lineWidth = 5;
     contextRef.current = context;
   };
+
+
+  
 
   const startDrawing = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
