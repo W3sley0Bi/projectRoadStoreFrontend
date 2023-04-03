@@ -16,6 +16,7 @@ export default function Form() {
     const [pdfData, setPdfData] = useState()
     const [textArea, setTextArea] = useState()
     const [files, setFiles] = useState([])
+    const [isDisabled, setIsDisabled] = useState(false);
     const token = useSelector((state) => state.token.value);
     const uid = useSelector((state) => state.uid.value);
     const role = useSelector((state) => state.role.value);
@@ -43,12 +44,12 @@ return false
 }
 
 const sendForm = async () =>{
-
+  
  const info = await checker(files.length)
 
  if(info === false) return
 
-
+ setIsDisabled(true);
 
 const formData = new FormData(); // create a new FormData instance
         
@@ -114,7 +115,8 @@ axios.post(`${process.env.NEXT_PUBLIC_NODE_SERVER}/formSign`, formData,{
     <Textarea width ="100%" label="Notes" placeholder="Add Notes" value={textArea} onChange={e=> setTextArea(e.target.value)}/>
     </details>
     <Spacer y={5} />
-    <Button onPress={sendForm}>Send</Button>
+    <Button onPress={sendForm} disabled={isDisabled}>Send</Button>
+    <Spacer y={5} />
           </Container>
     </Layout>
     </>
