@@ -29,13 +29,13 @@ const sendForm = () =>{
 })
 .then(res=> {
   console.log(res)
-//     if(res.status == 200){
-//         alert("form sent correctly")
-//         router.push(`/`)
-//     }else{
-//       alert(res.status)
-//       console.log(res)
-// }
+    if(res.status == 200){
+        alert("form sent correctly")
+        router.push(`/`)
+    }else{
+      alert(res.status)
+      console.log(res)
+}
 })
 .catch(err => console.log(err))
 } 
