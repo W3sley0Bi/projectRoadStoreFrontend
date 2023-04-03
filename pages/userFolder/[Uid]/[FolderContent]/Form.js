@@ -12,7 +12,6 @@ import FormInstallLK from "../../../../components/FormInstallLK";
 import { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import FormData from "form-data";
 import axios from "axios";
 
 export default function Form() {
@@ -49,8 +48,6 @@ export default function Form() {
 
     if (info === false) return;
 
-    setIsDisabled(true);
-
     const formData = new FormData(); // create a new FormData instance
 
     //looping trough multiple files
@@ -64,10 +61,8 @@ export default function Form() {
     formData.append("FolderContent", FolderContent);
     formData.append("textArea", textArea);
 
-    console.log(formData);
-
-    axios
-      .post(`${process.env.NEXT_PUBLIC_NODE_SERVER}/formSign`, formData, {
+    setIsDisabled(true);
+    axios.post(`${process.env.NEXT_PUBLIC_NODE_SERVER}/formSign`, formData, {
         headers: {
           Authorization: token,
           "Content-Type": "multipart/form-data",
