@@ -121,7 +121,7 @@ export default function Form() {
             </ul>
             <Spacer y={0.5} />
             <Textarea
-              width="100%"
+              width="90%"
               label="Notes"
               placeholder="Add Notes"
               value={textArea}
