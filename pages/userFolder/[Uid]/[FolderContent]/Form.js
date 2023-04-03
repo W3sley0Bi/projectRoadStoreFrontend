@@ -38,7 +38,7 @@ export default function Form() {
       return false;
     }
 
-    if (files.length >= 3) return true;
+    if (files.length >= 1) return true;
     alert("you need to fill the Installateur section with min. 3 images!");
     return false;
   };
