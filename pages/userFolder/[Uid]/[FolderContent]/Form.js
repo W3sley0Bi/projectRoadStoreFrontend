@@ -98,7 +98,7 @@ export default function Form() {
         console.log(res);
         if (res.status == 200) {
           alert("form sent correctly");
-         // router.push(`/`)
+          router.push(`/`)
         } else {
           alert(res.status);
           console.log(res);
@@ -137,7 +137,7 @@ export default function Form() {
             </ul>
             <Spacer y={0.5} />
             <Textarea
-              width="90%"
+              width="100%"
               label="Notes"
               placeholder="Add Notes"
               value={textArea}
