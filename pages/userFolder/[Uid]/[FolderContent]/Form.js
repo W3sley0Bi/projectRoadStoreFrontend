@@ -13,6 +13,7 @@ import { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import axios from "axios";
+import JSZip from 'jszip';
 
 export default function Form() {
   const router = useRouter();
@@ -38,31 +39,38 @@ export default function Form() {
       return false;
     }
 
-    if (files.length >= 1) return true;
+    if (files.length >= 3) return true;
     alert("you need to fill the Installateur section with min. 3 images!");
     return false;
   };
 
   const sendForm = async () => {
     const info = await checker(files.length);
-
+  
     if (info === false) return;
-
+  
     const formData = new FormData(); // create a new FormData instance
+  
+    let zip = new JSZip(); // create a new JSZip instance
+  
+    // add selected files to the zip
+    for (let i = 0; i < files.length; i++) {
+      zip.file(files[i].name, files[i]);
+    }
+  
+    // generate the zip file and append it to the formData
+   let blob = await zip.generateAsync({ type: "blob" }) 
 
-    //looping trough multiple files
-    files.forEach((file, i) => {
-      formData.append(`file-${i}`, file, file.name);
-    });
-
+    formData.append("fileZip", blob, "imgs.zip");
     const pdfDataString = JSON.stringify(pdfData);
     formData.append("pdfData", pdfDataString);
     formData.append("Uid", Uid);
     formData.append("FolderContent", FolderContent);
     formData.append("textArea", textArea);
-
+  
     setIsDisabled(true);
-    axios.post(`${process.env.NEXT_PUBLIC_NODE_SERVER}/formSign`, formData, {
+    axios
+      .post(`${process.env.NEXT_PUBLIC_NODE_SERVER}/formSign`, formData, {
         headers: {
           Authorization: token,
           "Content-Type": "multipart/form-data",
@@ -72,14 +80,16 @@ export default function Form() {
         console.log(res);
         if (res.status == 200) {
           alert("form sent correctly");
-          router.push(`/`)
+          router.push(`/`);
         } else {
           alert(res.status);
           console.log(res);
         }
       })
       .catch((err) => console.log(err));
+
   };
+  
 
   return (
     <>
