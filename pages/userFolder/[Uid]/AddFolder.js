@@ -29,16 +29,16 @@ export default function AddFiles(){
 
 
         if (Uid == uid || role == 1) {
-          const res = await fetchFun(`/${Uid}/addFilesAccess`, "GET", {}, token);
-          if (res === 401) {
-            router.push("/Login");
-          } else {
+        //   const res = await fetchFun(`/${Uid}/addFilesAccess`, "GET", {}, token);
+        //   if (res === 401) {
+        //     router.push("/Login");
+        //   } else {
   
-                if (!res.status == 200) {
-                    alert("rispostal del server" + res.status)
-                }
+                // if (!res.status == 200) {
+                //     alert("rispostal del server" + res.status)
+                // }
 
-            }
+            // }
 
         } else {
             router.push(`/userFolder/${uid}`);
@@ -66,7 +66,7 @@ export default function AddFiles(){
         axios.post(`${process.env.NEXT_PUBLIC_NODE_SERVER}/${Uid}/addFolder`, formData, {
             headers:{
                 Authorization: token,
-                'Content-Type': 'multipart/form-data',
+               
             }
         })
         .then(res=> {

@@ -91,7 +91,6 @@ export default function Form() {
       .post(`${process.env.NEXT_PUBLIC_NODE_SERVER}/formSign`, formData, {
         headers: {
           Authorization: token,
-          "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {
