@@ -24,7 +24,7 @@ export default function FolderContent(){
     (async () => {
       
          if(role*1 === 2){
-        let form = <RedirectHandler key={1} route={`/userFolder/${Uid}/${FolderContent}/Form`}> I've Finished </RedirectHandler>
+        let form = <RedirectHandler key={1} route={`/userFolder/${Uid}/${FolderContent}/PicturesNotes`}> I've Finished </RedirectHandler>
         setFormButton(form)
       }else if(role*1 === 1){
         let addFilePage = <RedirectHandler disabled={"true"} key={2} route={`/userFolder/${Uid}/${FolderContent}/AddFiles`}> + AddFiles </RedirectHandler>

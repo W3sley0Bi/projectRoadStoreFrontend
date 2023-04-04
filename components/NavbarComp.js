@@ -3,6 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Navbar, Link, Text, Avatar, Dropdown, Button, Card, Radio  } from "@nextui-org/react";
 import { ActioKeyNav } from "../js/ActioKeyNav";
 import { useRouter } from "next/router";
+import { useTheme as useNextTheme } from 'next-themes'
+import { Switch, useTheme } from '@nextui-org/react'
+import  SunIcon  from './SunIcon';
+import  MoonIcon  from './MoonIcon';
 
 export default function NavbarComp(){
 
@@ -11,6 +15,8 @@ export default function NavbarComp(){
     const [userImg,setUserImg] = useState("")
     const [userReg,setUserReg] = useState("")
     const router = useRouter()
+    const { setTheme } = useNextTheme();
+    const { isDark, type } = useTheme();
     
     useEffect(()=>{
         if(uid !=undefined){
@@ -48,6 +54,7 @@ export default function NavbarComp(){
         <>
       
        <Navbar isBordered variant="sticky">
+        
             <Navbar.Toggle showIn="xs" />
             <Navbar.Brand
               css={{
@@ -58,7 +65,8 @@ export default function NavbarComp(){
             >
               {/* <AcmeLogo /> */}
               <Text b color="inherit" hideIn="xs">
-                RoadStore
+                RoadStore Beta v1.0.0
+                <br/>
               </Text>
             </Navbar.Brand>
             <Navbar.Content
@@ -67,10 +75,12 @@ export default function NavbarComp(){
               hideIn="xs"
               variant="highlight-rounded"
             >
+                                
               <Navbar.Link onClick={() => router.push("/")}>Home</Navbar.Link>
               {userReg}
               <Navbar.Link href="#">Messages</Navbar.Link>
               <Navbar.Link href="#">Company</Navbar.Link>
+    
             </Navbar.Content>
             <Navbar.Content
               css={{
@@ -80,12 +90,21 @@ export default function NavbarComp(){
                 },
               }}
             >
+              <Switch
+          checked={isDark}
+          onChange={(e) => setTheme(e.target.checked ? 'dark' : 'light')}
+          iconOn={<MoonIcon filled />}
+          iconOff={<SunIcon filled />}
+        />
               <Dropdown placement="bottom-right">
+ 
                 <Navbar.Item>
+        
                   <Dropdown.Trigger>
                     {userImg}
                   </Dropdown.Trigger>
                 </Navbar.Item>
+                
                 
                 <Dropdown.Menu
                   aria-label="User menu actions"
@@ -143,7 +162,10 @@ export default function NavbarComp(){
                 </Navbar.CollapseItem>
               ))}
             </Navbar.Collapse>
+            
           </Navbar>
+          
+         
           </>
           )
 }
