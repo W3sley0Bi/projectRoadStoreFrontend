@@ -44,37 +44,46 @@ import {
       const formData = new FormData(); // create a new FormData instance
 
   //    looping trough multiple files
+  setIsDisabled(true);
+  formData.append("folder", FolderContent);
+
       if (files.length > 0) {
+
         files.forEach((file, i) => {
           if (file instanceof File) {
             formData.append(`file-${i}`, file, file.name);
+
+
+            axios
+            .post(`${process.env.NEXT_PUBLIC_NODE_SERVER}/imageUpload`, formData, {
+              headers: {
+                Authorization: token,
+                "Content-Type": "multipart/form-data",
+              },
+            })
+            .then((res) => {
+              console.log(res);
+              if (res.status == 200) {
+                //alert(`data sent correctly. status ${res.status}`);
+                //router.push(`/userFolder/${Uid}/${FolderContent}/Form`)
+              } else {
+                alert(res.status);
+                console.log(res);
+              }
+            })
+            .catch((err) => console.log(err));
+
+            formData.delete(`file-${i}`);
           }
         });
       }
 
-      formData.append("textArea", textArea);
-      formData.append("folder", FolderContent);
+       //formData.append("textArea", textArea);
+    
       
 
-      setIsDisabled(true);
-      axios
-        .post(`${process.env.NEXT_PUBLIC_NODE_SERVER}/imageUpload`, formData, {
-          headers: {
-            Authorization: token,
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          if (res.status == 200) {
-            alert(`data sent correctly. status ${res.status}`);
-            router.push(`/userFolder/${Uid}/${FolderContent}/Form`)
-          } else {
-            alert(res.status);
-            console.log(res);
-          }
-        })
-        .catch((err) => console.log(err));
+    
+
     };
   
     return (
