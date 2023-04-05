@@ -19,6 +19,7 @@ export default function FolderContent(){
     const uid = useSelector((state) => state.uid.value);
     const role = useSelector((state) => state.role.value);
 
+
     useEffect(()=>{
         if(!router.isReady) return;
     (async () => {

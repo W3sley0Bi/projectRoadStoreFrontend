@@ -5,7 +5,7 @@ import { useTheme, NextUIProvider, Text, Textarea, Button } from "@nextui-org/re
 import Layout from "./Layout";
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Spacer } from "@nextui-org/react";
-import DrawingCanvas from "./DrowingCanvas";
+import DrawingCanvas from "./canvas/DrowingCanvas";
 
 export default function FormInstallLK(props) {
 const [formState, setFormState] = useState({

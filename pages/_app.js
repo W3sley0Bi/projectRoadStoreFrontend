@@ -7,7 +7,7 @@ import { store } from "../stores/store";
 import { lightTheme, darkTheme } from "../js/theme";
 import "../styles/style.css";
 import "../styles/loader.css";
-import { CanvasProvider } from "../components/CanvasContext";
+import { CanvasProvider } from "../components/canvas/CanvasContext";
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
 

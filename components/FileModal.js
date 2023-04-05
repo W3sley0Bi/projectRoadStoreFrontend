@@ -32,7 +32,8 @@ export default function FileModal(prop) {
   useMemo(() => {
     if (role == 1) {
       setDeleteButton(
-        <>        <Spacer y={.5}/>
+        <>        
+        <Spacer y={.5}/>
         <img
           src="https://cdn-icons-png.flaticon.com/512/1828/1828851.png"
           width="50px"
@@ -117,7 +118,6 @@ export default function FileModal(prop) {
           style={{ flexDirection: "column" }}
         >
           <Row
-          
           >
             <Container
               onClick={async () =>

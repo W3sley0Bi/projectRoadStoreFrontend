@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { Navbar, Link, Text, Avatar, Dropdown, Button, Card, Radio  } from "@nextui-org/react";
+import { Navbar, Link, Text, Avatar, Dropdown, Button, Card, Radio, Spacer, Container  } from "@nextui-org/react";
 import { ActioKeyNav } from "../js/ActioKeyNav";
 import { useRouter } from "next/router";
 import { useTheme as useNextTheme } from 'next-themes'
@@ -14,6 +14,7 @@ export default function NavbarComp(){
     const role = useSelector((state) => state.role.value);
     const [userImg,setUserImg] = useState("")
     const [userReg,setUserReg] = useState("")
+    const [logo,setLogo] = useState({filter:"none"})
     const router = useRouter()
     const { setTheme } = useNextTheme();
     const { isDark, type } = useTheme();
@@ -36,6 +37,9 @@ export default function NavbarComp(){
             setUserReg(buttonReg)
         }
 
+        if(localStorage.getItem('theme')=="dark"){
+          setLogo({filter:"invert(1)"})
+        }
 
     },[uid])
 
@@ -43,6 +47,7 @@ export default function NavbarComp(){
         const collapseItems = [
             "Home",
             "Profile",
+            "Company",
             "Help & Feedback",
             "Log Out",
           ];
@@ -59,16 +64,37 @@ export default function NavbarComp(){
             <Navbar.Brand
               css={{
                 "@xs": {
-                  w: "12%",
+                  w: "15pc",
                 },
               }}
             >
               {/* <AcmeLogo /> */}
+              <Text hideIn="xs" >
+              <img  src="https://lk-distribution.fr/wp-content/uploads/2014/12/cropped-logo-LK-300.png" style={logo} alt="" />
+              </Text>
+              <Spacer y={2}/>
               <Text b color="inherit" hideIn="xs">
-                RoadStore Beta v1.0.0
-                <br/>
+                 Beta v1.0.0
+  
               </Text>
             </Navbar.Brand>
+            
+          <div  onClick={()=> history.back()} className="backButton" style={{
+                border: "2px solid",
+                borderRadius: "23px",
+                padding: "6px 6px 0px 6px"
+            }
+          }>
+            <svg style={{transform: "rotate(180deg)"}} height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg" class="chevron-right-icon"><g fill="none" stroke="var(--nextui-colors-secondary)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="chevron-right-icon"><path d="M14.43 5.93L20.5 12l-6.07 6.07"></path><path d="M3.5 12h16.83"></path></g></svg>
+          </div>  
+          <div  onClick={()=> location.reload()} className="backButton" style={{
+                border: "2px solid",
+                borderRadius: "23px",
+                padding: "6px 6px 0px 6px"
+            }
+          }>
+          <img src="https://cdn-icons-png.flaticon.com/512/179/179407.png" width="20px" alt="" />
+          </div>  
             <Navbar.Content
               enableCursorHighlight
               activeColor="primary"
@@ -78,10 +104,11 @@ export default function NavbarComp(){
                                 
               <Navbar.Link onClick={() => router.push("/")}>Home</Navbar.Link>
               {userReg}
-              <Navbar.Link href="#">Messages</Navbar.Link>
-              <Navbar.Link href="#">Company</Navbar.Link>
+              <Navbar.Link href="mailto:roadstore.noreply@gmail.com">Help & Feedback</Navbar.Link>
+              <Navbar.Link href="https://lk-distribution.fr/" target="_blank">Company</Navbar.Link>
     
             </Navbar.Content>
+         
             <Navbar.Content
               css={{
                 "@xs": {
@@ -90,6 +117,7 @@ export default function NavbarComp(){
                 },
               }}
             >
+
               <Switch
           checked={isDark}
           onChange={(e) => setTheme(e.target.checked ? 'dark' : 'light')}
@@ -134,7 +162,7 @@ export default function NavbarComp(){
                   key={item}
                   activeColor="primary"
                   css={{
-                    color: index === collapseItems.length - 1 ? "$error" : index == 1 || index == 2? "#242424" : "", 
+                    color: index === collapseItems.length - 1 ? "$error" : index == 1? "#242424" : "", 
                   }}
                  
 
@@ -153,6 +181,14 @@ export default function NavbarComp(){
                       case "Home":
                         router.push("/")
                           break;
+                      case "Company":
+                        window.open(`https://lk-distribution.fr/`)
+                          break;
+                      case "Help & Feedback":
+                        window.location.replace(`mailto:roadstore.noreply@gmail.com`)
+                          break;
+                      
+                          
                       default:
                         break;
                     }}}

@@ -2,13 +2,38 @@
 import {
     Link,
     Container,
+    Row,
+    Spacer
   } from "@nextui-org/react";
 import { useRouter } from "next/router";
+import { useEffect, useState, useMemo } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Folder(prop){
     const router = useRouter()
-    return(
+    const role = useSelector((state) => state.role.value);
+    const [deleteButton, setDeleteButton] = useState();
 
+
+    useMemo(() => {
+      if (role == 1) {
+        setDeleteButton(
+          <>        <Spacer y={.5}/>
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/1828/1828851.png"
+            width="50px"
+            height="50px"
+            alt="delete"
+          />
+          </>
+  
+        );
+      }
+    },[])
+
+    return(
+<>
+<Row>
     <Container
               key={prop.idFolder}
               style={{
@@ -28,5 +53,8 @@ export default function Folder(prop){
                 </div>
               </Link>
             </Container>
+            {deleteButton}
+            </Row>
+            </>
             )
 }
