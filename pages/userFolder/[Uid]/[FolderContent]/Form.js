@@ -105,7 +105,7 @@ useEffect(()=>{
     formData.append("FolderContent", FolderContent);
     formData.append("textArea", textArea);
 
-    //setIsDisabled(true);
+    setIsDisabled(true);
     axios
       .post(`${process.env.NEXT_PUBLIC_NODE_SERVER}/formSign`, formData, {
         headers: {
@@ -116,7 +116,7 @@ useEffect(()=>{
         console.log(res);
         if (res.status == 200) {
           alert("form sent correctly");
-         // router.push(`/`)
+         router.push(`/`)
         } else {
           alert(res.status);
           console.log(res);
