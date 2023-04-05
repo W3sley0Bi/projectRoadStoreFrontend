@@ -62,6 +62,25 @@ export default function Form() {
     );
   });
 
+
+useEffect(()=>{
+  if (files.length > 0) {
+    files.forEach(async (file, i) => {
+      if (file instanceof File) {
+        let image = await resizeFile(file);
+        setImages(prevState => ({
+          ...prevState,
+          [`file_${i}`]: image // add new property with the value of `file_${i}`
+        }));
+      }
+    });
+  }
+
+
+  
+},[fileList])
+
+
   const sendForm = async () => {
     const info = await checker(files.length);
 
@@ -74,28 +93,19 @@ export default function Form() {
     const formData = new FormData(); // create a new FormData instance
 
     //    looping through multiple files
-    if (files.length > 0) {
-      files.forEach(async (file, i) => {
-        if (file instanceof File) {
-          let image = await resizeFile(file);
-          setImages(prevState => ({
-            ...prevState,
-            [`file_${i}`]: image // add new property with the value of `file_${i}`
-          }));
-        }
-      });
-    }
 
+    console.log(images)
 
     const imagesString = JSON.stringify(images);
     const pdfDataString = JSON.stringify(pdfData);
+
     formData.append(`images`, imagesString);
     formData.append("pdfData", pdfDataString);
     formData.append("Uid", Uid);
     formData.append("FolderContent", FolderContent);
     formData.append("textArea", textArea);
 
-    setIsDisabled(true);
+    //setIsDisabled(true);
     axios
       .post(`${process.env.NEXT_PUBLIC_NODE_SERVER}/formSign`, formData, {
         headers: {
@@ -106,7 +116,7 @@ export default function Form() {
         console.log(res);
         if (res.status == 200) {
           alert("form sent correctly");
-          router.push(`/`)
+         // router.push(`/`)
         } else {
           alert(res.status);
           console.log(res);
