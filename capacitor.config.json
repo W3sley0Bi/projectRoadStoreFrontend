@@ -1,6 +1,6 @@
 {
   "appId": "roadstore.app",
-  "appName": "LKInstallateurs",
+  "appName": "lkinstallateurs",
   "webDir": "out",
   "bundledWebRuntime": false,
   "serverUrl": "https://sparkling-sweatpants-colt.cyclic.app"

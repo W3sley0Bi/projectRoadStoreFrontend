@@ -1,0 +1,28 @@
+PODS:
+  - Capacitor (4.7.3):
+    - CapacitorCordova
+  - CapacitorCordova (4.7.3)
+  - CapacitorSwipeBack (4.0.0):
+    - Capacitor
+
+DEPENDENCIES:
+  - "Capacitor (from `../../node_modules/@capacitor/ios`)"
+  - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
+  - CapacitorSwipeBack (from `../../node_modules/capacitor-swipe-back`)
+
+EXTERNAL SOURCES:
+  Capacitor:
+    :path: "../../node_modules/@capacitor/ios"
+  CapacitorCordova:
+    :path: "../../node_modules/@capacitor/ios"
+  CapacitorSwipeBack:
+    :path: "../../node_modules/capacitor-swipe-back"
+
+SPEC CHECKSUMS:
+  Capacitor: 736ef58c1aff08d3142fe3be9c7d928e47ee461d
+  CapacitorCordova: e8ed29bd616c9f5a81498d47c0b84179b9c6a5a6
+  CapacitorSwipeBack: 79b76f1e30a65d4b8c8a89974c64be00ed595a12
+
+PODFILE CHECKSUM: 939f067c7d202a364e49a5f245b2975e1ec7687f
+
+COCOAPODS: 1.11.2
