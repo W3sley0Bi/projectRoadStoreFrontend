@@ -1,12 +1,12 @@
 import { Modal, useModal } from "@nextui-org/react";
 import axios from "axios";
 import { useEffect, useState, useMemo } from "react";
-import { Document, Page } from "@react-pdf/renderer";
-import pdfjs from 'pdfjs-dist';
-import PdfRender from "./pdfRender/pdfRender";
-import ReactPDF from '@react-pdf/renderer';
-import ReactDOM from 'react-dom';
-import { PDFViewer } from '@react-pdf/renderer';
+// import { Document, Page } from "@react-pdf/renderer";
+// import pdfjs from 'pdfjs-dist';
+// import PdfRender from "./pdfRender/pdfRender";
+// import ReactPDF from '@react-pdf/renderer';
+// import ReactDOM from 'react-dom';
+// import { PDFViewer } from '@react-pdf/renderer';
 import {
   Button,
   Grid,
