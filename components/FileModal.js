@@ -89,18 +89,18 @@ export default function FileModal(prop) {
       console.log(fileType);
       switch (fileType) {
         case "application/pdf":
-        return( 
-        <object data={url} style={{backgroundColor: "white"}} type="application/pdf" width="100%" height="100%">
-          <p style={{color: "black"}}>If you are android and you cannot see the content click here <a href={url}>link to pdf</a></p>
-      </object>
-        )
-          // window.open(url)
-          // (
-          //   <>
-
-          //     <iframe src={url} height={"100%"} width={"100%"}></iframe>
-          //   </>
-          // );
+          console.log(navigator.userAgentData.mobile)
+          if(navigator.userAgentData.mobile){
+            window.open(url);
+            setVisible(false)
+          }else{
+            return( 
+                <>
+                  <iframe src={url} height={"100%"} width={"100%"}></iframe>
+                </>
+              );
+          }
+        
           break;
         case "image/jpeg":
         case "image/jpg":
