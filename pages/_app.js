@@ -37,6 +37,7 @@ function MyApp({ Component, pageProps }) {
         <Provider store={store}>
           <CanvasProvider>
             <Head>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
               <meta
                 name="viewport"
                 content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no"

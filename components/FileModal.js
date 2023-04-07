@@ -1,12 +1,7 @@
 import { Modal, useModal } from "@nextui-org/react";
 import axios from "axios";
 import { useEffect, useState, useMemo } from "react";
-// import { Document, Page } from "@react-pdf/renderer";
-// import pdfjs from 'pdfjs-dist';
-// import PdfRender from "./pdfRender/pdfRender";
-// import ReactPDF from '@react-pdf/renderer';
-// import ReactDOM from 'react-dom';
-// import { PDFViewer } from '@react-pdf/renderer';
+
 import {
   Button,
   Grid,
@@ -94,16 +89,18 @@ export default function FileModal(prop) {
       console.log(fileType);
       switch (fileType) {
         case "application/pdf":
-          return (
-            
-            <>
-<embed type="application/pdf" src={url} width="100%" height="100%"></embed>
-{/* <PDFViewer>
-    <PdfRender url={'LK-Fillable-3.pdf'} />
-  </PDFViewer>
-    */}
-            </>
-          );
+        return( 
+        <object data={url} style={{backgroundColor: "white"}} type="application/pdf" width="100%" height="100%">
+          <p style={{color: "black"}}>If you are android and you cannot see the content click here <a href={url}>link to pdf</a></p>
+      </object>
+        )
+          // window.open(url)
+          // (
+          //   <>
+
+          //     <iframe src={url} height={"100%"} width={"100%"}></iframe>
+          //   </>
+          // );
           break;
         case "image/jpeg":
         case "image/jpg":
@@ -131,7 +128,6 @@ export default function FileModal(prop) {
     <div>
       {loader}
       {prop.file_name ? (
-        
         <Container
           key={prop.idFile}
           gap={2}
