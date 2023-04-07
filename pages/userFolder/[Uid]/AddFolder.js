@@ -28,19 +28,8 @@ export default function AddFiles(){
     (async () => {
 
 
-        if (Uid == uid || role == 1) {
-        //   const res = await fetchFun(`/${Uid}/addFilesAccess`, "GET", {}, token);
-        //   if (res === 401) {
-        //     router.push("/Login");
-        //   } else {
-  
-                // if (!res.status == 200) {
-                //     alert("rispostal del server" + res.status)
-                // }
+        if (Uid != uid || role != 1) {
 
-            // }
-
-        } else {
             router.push(`/userFolder/${uid}`);
           }
                   

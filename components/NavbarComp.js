@@ -87,6 +87,14 @@ export default function NavbarComp(){
           }>
             <svg style={{transform: "rotate(180deg)"}} height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg" class="chevron-right-icon"><g fill="none" stroke="var(--nextui-colors-secondary)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="chevron-right-icon"><path d="M14.43 5.93L20.5 12l-6.07 6.07"></path><path d="M3.5 12h16.83"></path></g></svg>
           </div>  
+          <div  onClick={()=> router.push("/")} className="backButton" style={{
+                border: "2px solid",
+                borderRadius: "23px",
+                padding: "6px 6px 0px 6px"
+            }
+          }>
+          <img src="	https://cdn-icons-png.flaticon.com/512/553/553416.png" width="20px" alt="" />
+          </div>  
           <div  onClick={()=> location.reload()} className="backButton" style={{
                 border: "2px solid",
                 borderRadius: "23px",

@@ -33,6 +33,7 @@ export const fetchFun = async (url, method, body, token, ) => {
     default:
       break;
   }
+  
   if (!res.ok) {
       //  if (res.status === 401) {
       //   router.push("/Login");

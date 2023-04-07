@@ -18,6 +18,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchFun } from "../js/fetchFun";
 import Loader from "./Loader";
 import NoData from "./NoData";
+import { deleteFile } from "../js/deleteFunctions"
 
 export default function FileModal(prop) {
   const { setVisible, bindings } = useModal();
@@ -35,6 +36,7 @@ export default function FileModal(prop) {
         <>
           <Spacer y={0.5} />
           <img
+          onClick={()=> deleteFile(prop.idFile,token)}
             src="https://cdn-icons-png.flaticon.com/512/1828/1828851.png"
             width="50px"
             height="50px"
@@ -89,16 +91,17 @@ export default function FileModal(prop) {
       console.log(fileType);
       switch (fileType) {
         case "application/pdf":
-          console.log(navigator.userAgentData.mobile)
-          if(navigator.userAgentData.mobile){
-            window.open(url);
-            setVisible(false)
-          }else{
+          console.log(navigator.platform)
+          if (navigator.platform.startsWith('Win') || navigator.platform.startsWith('Mac')) {
             return( 
-                <>
-                  <iframe src={url} height={"100%"} width={"100%"}></iframe>
-                </>
-              );
+              <>
+                <iframe src={url} height={"100%"} width={"100%"}></iframe>
+              </>
+            );
+            
+          }else{
+            window.open(url,'_blank');
+            setVisible(false)
           }
         
           break;
