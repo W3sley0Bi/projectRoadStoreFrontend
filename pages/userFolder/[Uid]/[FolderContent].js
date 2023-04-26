@@ -39,7 +39,7 @@ export default function FolderContent(){
           } else {
                 console.log(res)
                 const file = res.map(item => 
-    
+                  
                    <FileModal key={item.idFile} idFile={item.idFile} file_name={item.file_name} file_data={item.file_data} file_type={item.file_type} ></FileModal>
                     
                     );

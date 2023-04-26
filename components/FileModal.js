@@ -2,6 +2,8 @@ import { Modal, useModal } from "@nextui-org/react";
 import axios from "axios";
 import { useEffect, useState, useMemo } from "react";
 
+import { Document, Page, pdfjs } from "react-pdf";
+
 import {
   Button,
   Grid,
@@ -18,7 +20,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchFun } from "../js/fetchFun";
 import Loader from "./Loader";
 import NoData from "./NoData";
-import { deleteFile } from "../js/deleteFunctions"
+import { deleteFile } from "../js/deleteFunctions";
 
 export default function FileModal(prop) {
   const { setVisible, bindings } = useModal();
@@ -29,14 +31,21 @@ export default function FileModal(prop) {
   const role = useSelector((state) => state.role.value);
   const [deleteButton, setDeleteButton] = useState();
   const [loader, setLoader] = useState(<Loader></Loader>);
+  const [numPages, setNumPages] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
+
+  function onDocumentLoadSuccess({ numPages }) {
+    setNumPages(numPages);
+  }
 
   useMemo(() => {
+    pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
     if (role == 1) {
       setDeleteButton(
         <>
           <Spacer y={0.5} />
           <img
-          onClick={()=> deleteFile(prop.idFile,token)}
+            onClick={() => deleteFile(prop.idFile, token)}
             src="https://cdn-icons-png.flaticon.com/512/1828/1828851.png"
             width="50px"
             height="50px"
@@ -87,23 +96,35 @@ export default function FileModal(prop) {
         type: fileType,
       });
       const url = URL.createObjectURL(blob);
-
+      console.log(url);
       console.log(fileType);
       switch (fileType) {
         case "application/pdf":
-          console.log(navigator.platform)
-          if (navigator.platform.startsWith('Win') || navigator.platform.startsWith('Mac')) {
-            return( 
+          console.log(navigator.platform);
+          if (
+            navigator.platform.startsWith("Win") ||
+            navigator.platform.startsWith("Mac")
+          ) {
+            return (
               <>
                 <iframe src={url} height={"100%"} width={"100%"}></iframe>
+ 
               </>
             );
-            
-          }else{
-            window.open(url,'_blank');
-            setVisible(false)
+          } else {
+   
+            <Document  file={url} onLoadSuccess={onDocumentLoadSuccess}>
+              {Array.from(new Array(numPages), (el, index) => (
+                <>
+                <Page key={`page_${index + 1}`} wrap={false} pageNumber={index + 1}  />
+                <p>Page {index + 1} of {numPages}</p>
+                </>
+              ))}
+            </Document>
+          
+            setVisible(false);
           }
-        
+
           break;
         case "image/jpeg":
         case "image/jpg":

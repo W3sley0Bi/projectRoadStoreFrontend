@@ -19,4 +19,13 @@ body {
     user-scalable: no;
   }
 
- 
+
+ div.react-pdf__Page__annotations.annotationLayer,
+ div.react-pdf__Page__textContent.textLayer{
+    display: none;
+  }
+
+  canvas.react-pdf__Page__canvas{
+    width: 100% !important;
+    height: 100% !important;
+  }
