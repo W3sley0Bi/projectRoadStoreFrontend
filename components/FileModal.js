@@ -112,7 +112,8 @@ export default function FileModal(prop) {
               </>
             );
           } else {
-   
+            return(
+              <>
             <Document  file={url} onLoadSuccess={onDocumentLoadSuccess}>
               {Array.from(new Array(numPages), (el, index) => (
                 <>
@@ -121,8 +122,10 @@ export default function FileModal(prop) {
                 </>
               ))}
             </Document>
-          
-            setVisible(false);
+            
+           </>
+            )
+            
           }
 
           break;
