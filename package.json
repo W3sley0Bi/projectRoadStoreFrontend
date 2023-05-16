@@ -1,11 +1,13 @@
 {
   "private": true,
+  "main": "pages/index.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "static": "next build && next export"
+    "static": "next build && next export",
+    "electron:start": "concurrently \"npm run start\" \"wait-on http://localhost:3001 && electron .\""
   },
   "dependencies": {
     "@capacitor/android": "^4.7.3",

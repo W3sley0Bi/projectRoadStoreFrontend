@@ -31,11 +31,11 @@ export default function FileModal(prop) {
   const role = useSelector((state) => state.role.value);
   const [deleteButton, setDeleteButton] = useState();
   const [loader, setLoader] = useState(<Loader></Loader>);
-  const [numPages, setNumPages] = useState(0);
+  const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
 
-  function onDocumentLoadSuccess({ numPages }) {
-    setNumPages(numPages);
+   function onDocumentLoadSuccess({ numPages }) {
+     setNumPages(numPages);
   }
 
   useMemo(() => {
@@ -89,15 +89,16 @@ export default function FileModal(prop) {
     })();
   }, []);
 
+
   const fileHandler = async (idFile, fileName, fileData, fileType) => {
     setVisible(true);
+    
     try {
       const blob = new Blob([new Uint8Array(fileData.data)], {
         type: fileType,
       });
       const url = URL.createObjectURL(blob);
-      console.log(url);
-      console.log(fileType);
+
       switch (fileType) {
         case "application/pdf":
           console.log(navigator.platform);
@@ -105,19 +106,30 @@ export default function FileModal(prop) {
             navigator.platform.startsWith("Win") ||
             navigator.platform.startsWith("Mac")
           ) {
+          
             return (
               <>
-                <iframe src={url} height={"100%"} width={"100%"}></iframe>
- 
+                {/* <iframe src={url} height={"100%"} width={"100%"}></iframe> */}
+
+                <Document file={url} onLoadSuccess={onDocumentLoadSuccess}>
+           
+                
+              {Array.from(new Array(numPages), (el, index) => (
+                <div key={`page_${index + 1}`}>
+                <Page  pageNumber={index + 1}  />
+                <p>Page {index + 1} of {numPages}</p>
+                </div>
+              ))}
+            </Document>
               </>
             );
           } else {
             return(
               <>
-            <Document  file={url} onLoadSuccess={onDocumentLoadSuccess}>
+            <Document file={url} onLoadSuccess={onDocumentLoadSuccess}>
               {Array.from(new Array(numPages), (el, index) => (
                 <>
-                <Page key={`page_${index + 1}`} wrap={false} pageNumber={index + 1}  />
+                <Page key={`page_${index + 1}`} pageNumber={index + 1}  />
                 <p>Page {index + 1} of {numPages}</p>
                 </>
               ))}
